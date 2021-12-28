@@ -1,0 +1,380 @@
+#banner
+{
+	width: 100%;
+	height: 100vh;
+	/*background: linear-gradient(to bottom, rgba(218,165,146,.4)0, rgba(218,165,146,.4)100%), url(image/g17.jpg);*/
+	background: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.1)100%), url(image/g17.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+#banner2
+{
+	width: 100%;
+	height: 50vh;
+	/*background: linear-gradient(to bottom, rgba(218,165,146,.4)0, rgba(218,165,146,.4)100%), url(image/g17.jpg);*/
+	background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)100%), url(image/roombanner.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+
+.navtitle
+{
+	font-family: "Niconne";
+}
+
+.logofont
+{
+    font-family: "Oleo_Script";
+    font-size: 30px;
+    
+}
+
+@font-face
+{
+    font-family:Oleo_Script;
+    src:url("fonts/font-face/OleoScript-Bold.ttf"); 
+}
+
+.divider
+{
+	max-width: 3.25rem;
+	border-width: .2rem;
+	border-color: #3AAFA9;
+}
+
+.contactbtn
+{
+	padding: 1.25rem 2.25rem;
+	font-size: .85rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	border: none;
+	border-radius: 10rem;
+	background-color: #3AAFA9;
+}
+
+.star,.model
+{
+	padding: 15px;
+	border-radius: 25px;
+	background-color: #DEF2F1;
+	color: white;
+}
+
+
+#banner1
+{
+	width: 100%;
+	height: 100vh;
+	background: url(image/banner1.jpg);
+  /*linear-gradient(to bottom, rgba(218,165,146,.4)0, rgba(218,165,146,.4)100%),*/
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/*for css Copy.html*/
+.primary{
+	color: #DEF2F1;
+
+
+}
+.team{
+	color: #000;
+}
+
+#counter{
+	background: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.1)100%), url(image/g2.jpg);
+	/*background-image: url(image/bannar.jpg);*/
+	background-size: cover;
+	background-position: center;
+	color: #fff;
+	text-align: center;
+	background-attachment: fixed;
+	padding: 35px;
+}
+
+
+
+/*for css Copy.html End*/
+
+
+.navbardefault.scrolled
+{
+	background-color: #B7D8D6;
+    color: black;
+}
+
+
+.primary1{
+	background-color: #B7D8D6;
+    color: black;
+
+
+}
+
+.primary2{
+	/*background-color: gold;*/
+	color: yellow;
+
+
+}
+
+
+.bottom-right {
+ position: absolute;
+ top: 15px;
+ left: 50%;
+ width: 200px;
+ transform: translate(-50%, -50%);
+ background: white;
+ color: #DEF2F1;
+}
+
+.bottom-right1 {
+ position: absolute;
+ top: 15px;
+ left: 50%;
+ width: 200px;
+ transform: translate(-50%, -50%);
+ background: white;
+ color: #DEF2F1;
+}
+
+.table1
+{
+	margin-left: 140px;
+	margin-right: 140px;
+	
+}
+
+
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    /*right: 25px;*/
+    display: none;
+}
+footer{
+	max-width: 100%;
+	text-align: center;
+	
+	background-color: #000000;
+	color: #DEF2F1;
+	
+
+}
+footer p{
+	text-align: center;
+	color: #DEF2F1;
+}
+/*-- about --*/
+.about-text-grid {
+    padding: 2em 3em;
+}
+.about-text-grid h3,.about-text-grid1 h3 {
+    display: inline-block;
+    font-size: 2.8em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.about-text-grid a {
+    background: #03A9F4;
+    padding: 15px 30px;
+    display: inline-block;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+}
+a.btn.button-style-2 {
+    background: #17181b;
+    padding: 16px 30px;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 2px;
+    -webkit-border-radius: 0px;
+    -o-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+/*-- //about --*/
+
+/* pricing */
+.price-top {
+    
+    padding: 10px;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+.price-w3ls-bottom h4 a {
+    font-size: 34px;
+    color: #343a40;
+}
+
+.price-midd-head {
+    font-size: 65px;
+    color: #333;
+    font-weight: 600;
+}
+
+.price-right-head {
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.price-top-head {
+    font-size: 32px;
+    vertical-align: top;
+    font-weight: 500;
+}
+
+ul.style-lists li {
+    letter-spacing: .5px;
+    color: #6f6f6f;
+    margin: 14px 0;
+    list-style: inside;
+}
+
+/* //pricing */
+/*-- contact --*/
+.address-grid,
+.address-info {
+    background-color: #fff;
+    padding: 40px;
+    -webkit-box-shadow: 0px 2px 13px -1px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 2px 13px -1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 13px -1px rgba(0, 0, 0, 0.15);
+}
+
+.address-info.address-mdl {
+    margin: 2em 0;
+}
+
+.address h4 {
+    font-size: 25px;
+    color: #17252A;
+    letter-spacing: 1px;
+}
+
+.address input[type="text"],
+.address input[type="email"],
+.address textarea {
+    color: #000;
+    background: none;
+    outline: none;
+    font-size: 15px;
+    padding: 11px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+    border: none;
+    border-bottom: solid 1px #828282;
+    -webkit-appearance: none;
+    border-radius: 0px;
+}
+
+.address textarea {
+    min-height: 12em;
+    -webkit-appearance: none;
+    resize: none;
+}
+
+.address input[type="submit"] {
+    border: none;
+    outline: none;
+    color: #fff;
+    padding: 12px 0;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-top: 1.7em;
+    width: 100%;
+    -webkit-appearance: none;
+    background: #17252A;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+.address p a {
+    color: #999;
+}
+
+.address p a:hover {
+    color: #000;
+}
+
+/* map */
+.map iframe {
+    width: 100%;
+    border: none;
+    outline: none;
+    min-height: 400px;
+}
+
+/* //map */
+/*-- //contact --*/
+/* testimonials */
+.team-img img {
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, .3);
+}
+
+.team-info {
+    padding: 3em;
+    background: #f5f3f0;
+    background: #eee;
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
+}
+
+.team-info h3 {
+    font-size: 24px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.sub-tittle-team {
+    font-size: 16px;
+    color: #f0546a;
+    display: block;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* //testimonials */
+
+
+.fontcolor
+{
+    color: black;
+}
+
+.logofont
+{
+    font-family: "Oleo_Script";
+    font-size: 30px;
+    
+}
+
+@font-face
+{
+    font-family:"Oleo_Script";
+    src:url("font-face/OleoScript-Bold.ttf"); 
+}
+
+.align-middle {
+    vertical-align: middle;
+}
