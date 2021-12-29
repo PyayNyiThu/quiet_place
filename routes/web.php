@@ -50,7 +50,9 @@ Route::namespace('Frontend')->group(function() {
 
     Route::get('/room-page/{id}', 'PageController@roomPageDetail')->name('frontend.room_page_detail')->middleware('check_url');
 
-    Route::get('/customer-booking-list/{id}', 'PageController@customerBookingList')->name('frontend.customer_booking_list');
+    Route::get('/customer-booking-list/{id}', 'PageController@customerBookingList')->name('frontend.customer_booking_list')->middleware('auth:customer');
+
+    Route::get('/customer-booking/{customer_id}/detail/{room_id}', 'PageController@customerBookingDetail')->name('frontend.customer_booking_detail')->middleware('auth:customer');
 });
 
 

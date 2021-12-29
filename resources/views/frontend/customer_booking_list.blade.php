@@ -2,11 +2,11 @@
 
 @section('content')
 
-    
-
     <!-- Rooms Area Start -->
-    <div class="roberto-rooms-area section-padding-100-0">
+    <div class="roberto-rooms-area">
         <div class="container">
+            @if($booking_list->count())
+            <h2 class="text-center mb-5 mt-3 booking-section">Your Booking List</h2>
             <div class="row">
                 @foreach ($booking_list as $row)
                     <div class="col-12 col-lg-6">
@@ -27,9 +27,9 @@
                                     <h6>Township: <span>{{ $row->room->township->name }}</span></h6>
                                 </div>
 
-                                <form method="get" action="{{ route('frontend.room_page_detail', $row->id) }}">
+                                <form method="get" action="{{ route('frontend.customer_booking_detail', [$row->customer_id, $row->room_id]) }}">
                                     {{-- <input type="hidden" value="{{ $booking_date }}" name="booking_date"> --}}
-                                    <input type="hidden" value="{{ $row->id }}" name="id">
+                                    {{-- <input type="hidden" value="{{ $row->id }}" name="id"> --}}
                                     <button type="submit" class="btn view-detail-btn">View Details <i
                                             class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
                                 </form>
@@ -40,6 +40,9 @@
                     </div>
                 @endforeach
             </div>
+            @else
+            <h2 class="text-center mb-5 mt-3 booking-section text-danger">You have no booking!</h2>
+            @endif
         </div>
     </div>
     <!-- Rooms Area End -->
@@ -80,7 +83,6 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger roberto-btn" data-dismiss="modal" name="ok">Ok</button>
-                    <!-- <button type="submit" class="btn" style="background: #1cc3b2;color: white;">Book</button> -->
                 </div>
             </div>
         </div>
@@ -107,25 +109,3 @@
 
 @endsection
 
-@section('script')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(document).on('click', '.view-detail-btn', function(e) {
-                e.preventDefault();
-
-                var booking_date = $('#booking_date').val();
-                var form = $(this).closest("form");
-
-                if (booking_date == "") {
-                    $('#selectBookingDateModal').modal('show');
-                } else {
-                    form.submit();
-                }
-            });
-
-            @if (session('error'))
-                $('#bookingErrorModal').modal('show');
-            @endif
-        });
-    </script>
-@endsection

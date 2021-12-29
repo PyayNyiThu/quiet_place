@@ -14,7 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if($request->is('customer')) {
+        if($request->is('customer/*')) {
             return route('customer.login');
         }
 

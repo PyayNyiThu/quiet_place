@@ -135,7 +135,7 @@
         aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: #1cc3b2;color: white;">
+                <div class="modal-header btn-theme">
                     Warning!
                 </div>
 
@@ -145,7 +145,6 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger roberto-btn" data-dismiss="modal" name="ok">Ok</button>
-                    <!-- <button type="submit" class="btn" style="background: #1cc3b2;color: white;">Book</button> -->
                 </div>
             </div>
         </div>

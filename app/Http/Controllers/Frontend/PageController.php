@@ -48,13 +48,9 @@ class PageController extends Controller
 
     public function roomPageDetail(Request $request, $id) {
         $room = Room::findOrFail($id);
-        $room_type = Roomtype::all();
-        $roomtownship = Township::all();
-        $service = Service::all();
-        $rooms = Room::all();
         $booking_date = $request->booking_date;
     
-        return view('frontend.room_page_detail', compact('room_type','roomtownship','service','room','rooms','booking_date'));
+        return view('frontend.room_page_detail', compact('room','booking_date'));
     }
 
     public function customerBookingList($id) {
@@ -63,7 +59,9 @@ class PageController extends Controller
         return view('frontend.customer_booking_list', compact('booking_list'));
     }
 
-    public function customerBookingDetail() {
-
+    public function customerBookingDetail($customer_id, $room_id) {
+        $booking = Booking::where('customer_id', $customer_id)->where('room_id', $room_id)->first();
+    
+        return view('frontend.customer_booking_detail', compact('booking'));
     }
 }

@@ -58,7 +58,7 @@
 
                             <h3 class="heading mb-4">Time</h3>
 
-                            @foreach (config('constants.TIME') as $key => $value)
+                            {{-- @foreach (config('constants.TIME') as $key => $value)
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input radio-btn" id="{{$key}}" name="btime"
                                         value="{{ $key }}">
@@ -66,13 +66,21 @@
                                         <p class="rate"><span>{{ $value }}</span></p>
                                     </label>
                                 </div>
-                            @endforeach
+                            @endforeach --}}
 
-                            {{-- <div class="form-check">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input radio-btn" id="time1" name="btime"
+                                    value="9 am - 12 pm">
+                                <label class="form-check-label" for="time1">
+                                    <p class="rate"><span>9 AM - 12 PM</span></p>
+                                </label>
+                            </div>
+
+                            <div class="form-check">
                                 <input type="radio" class="form-check-input radio-btn" id="time2" name="btime"
                                     value="1 pm - 4 pm">
                                 <label class="form-check-label" for="time2">
-                                    <p class="rate"><span>1 pm - 4 pm</span></p>
+                                    <p class="rate"><span>1 PM - 4 PM</span></p>
                                 </label>
                             </div>
 
@@ -80,9 +88,9 @@
                                 <input type="radio" class="form-check-input radio-btn" id="time3" name="btime"
                                     value="5 pm - 8 pm">
                                 <label class="form-check-label" for="time3">
-                                    <p class="rate"><span>5 pm - 8 pm</span></p>
+                                    <p class="rate"><span>5 PM - 8 PM</span></p>
                                 </label>
-                            </div> --}}
+                            </div>
                         </div>
 
                         <div class="sidebar-wrap bg-light ftco-animate">
@@ -168,7 +176,7 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: #1cc3b2;color: white;">
+                <div class="modal-header btn-theme">
                     Warning!
                 </div>
 
@@ -178,7 +186,6 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn roberto-btn" data-dismiss="modal" name="ok">Ok</button>
-                    {{-- <button type="submit" class="btn" style="background: #1cc3b2;color: white;" data-dismiss="modal">Ok</button> --}}
                 </div>
             </div>
         </div>
@@ -261,12 +268,11 @@
 
                             <input type="hidden" class="form-control booking_time" id="booking_time" name="booking_time">
 
-                            <button type="submit" class="btn" style="background: #1cc3b2;color: white;"
+                            <button type="submit" class="btn btn-theme"
                                 id="bookshow">Book</button>
                         </form>
                     @else
-                        <a href="{{ url('customer/login-prev') }}"><button class="btn"
-                                style="background: #1cc3b2;color: white;">Login</button></a>
+                        <a href="{{ url('customer/login-prev') }}"><button class="btn btn-theme">Login</button></a>
                     @endauth
                 </div>
             </div>

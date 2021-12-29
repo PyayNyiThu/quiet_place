@@ -13,7 +13,6 @@ class Booking extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable=['booking_no', 'customer_id', 'room_id', 'booking_date', 'time', 'status'];
-    // protected $fillable=['user_name','email','phone_no','address','room_id','booking_date','time','status'];
 
     public function room() {
       return $this->belongsTo('App\Room');

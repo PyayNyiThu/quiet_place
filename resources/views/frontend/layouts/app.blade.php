@@ -73,7 +73,7 @@
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="{{ route('frontend.customer_booking_list', Auth::guard('customer')->user()->id) }}">
-                                                    {{ __('Your Booking List') }}
+                                                    {{ __('Booking List') }}
                                                 </a>
 
                                                 <a class="dropdown-item" href="{{ route('customer.logout') }}" onclick="event.preventDefault();
