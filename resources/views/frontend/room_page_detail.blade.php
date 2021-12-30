@@ -268,11 +268,15 @@
 
                             <input type="hidden" class="form-control booking_time" id="booking_time" name="booking_time">
 
-                            <button type="submit" class="btn btn-theme"
-                                id="bookshow">Book</button>
+                            <button type="submit" class="btn btn-theme" id="bookshow">Book</button>
                         </form>
                     @else
                         <a href="{{ url('customer/login-prev') }}"><button class="btn btn-theme">Login</button></a>
+
+                        <input type="hidden" class="form-control" id="room_id" value="{{ $room->id }}" name="room_id">
+
+                        <input type="hidden" class="form-control" value="{{ $booking_date }}" name="booking_date"
+                            id="booking_date">
                     @endauth
                 </div>
             </div>
@@ -288,6 +292,7 @@
             var time3 = $('#time3').val();
             var id = $('#room_id').val();
             var date = $('#booking_date').val();
+            console.log("Id is " + id + ". Date is " + date);
 
             $.get("{{ url('getBookingId') }}" + `/${id}/${date}`, function(response) {
                 $.each(response, function(i, v) {
