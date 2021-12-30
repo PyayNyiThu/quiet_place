@@ -59,8 +59,8 @@ class PageController extends Controller
         return view('frontend.customer_booking_list', compact('booking_list'));
     }
 
-    public function customerBookingDetail($customer_id, $room_id) {
-        $booking = Booking::where('customer_id', $customer_id)->where('room_id', $room_id)->first();
+    public function customerBookingDetail($customer_id, $booking_id) {
+        $booking = Booking::where('customer_id', $customer_id)->findOrFail($booking_id);
     
         return view('frontend.customer_booking_detail', compact('booking'));
     }

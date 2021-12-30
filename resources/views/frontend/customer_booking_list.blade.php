@@ -21,15 +21,15 @@
                             <div class="room-content">
                                 <h2>{{ $row->room->roomtype->name }}</h2>
                                 <h4>{{ $row->room->price }} MMK <span>/ Period</span></h4>
-                                <div class="room-feature">
+                                {{-- <div class="room-feature"> --}}
                                     <h6>Size: <span>{{ $row->room->size }} ft</span></h6>
-                                    <h6>Capacity: <span>Max person {{ $row->room->capacity }}</span></h6><br><br>
+                                    <h6>Capacity: <span>Max person {{ $row->room->capacity }}</span></h6>
                                     <h6>Township: <span>{{ $row->room->township->name }}</span></h6>
-                                </div>
+                                    <h6>Date: <span>{{ $row->booking_date }}</span></h6>
+                                    <h6>Time: <span>{{ $row->time }}</span></h6>
+                                {{-- </div> --}}
 
-                                <form method="get" action="{{ route('frontend.customer_booking_detail', [$row->customer_id, $row->room_id]) }}">
-                                    {{-- <input type="hidden" value="{{ $booking_date }}" name="booking_date"> --}}
-                                    {{-- <input type="hidden" value="{{ $row->id }}" name="id"> --}}
+                                <form method="get" action="{{ route('frontend.customer_booking_detail', [$row->customer_id, $row->id]) }}">
                                     <button type="submit" class="btn view-detail-btn">View Details <i
                                             class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
                                 </form>

@@ -105,7 +105,10 @@
                                                     Time
                                                 </td>
                                                 <td class="col-8">
-                                                    {{ $booking->time }}
+                                                    {{-- @foreach($booking_time as $row)
+                                                    {{$row->time}},
+                                                    @endforeach --}}
+                                                    {{$booking->time}}
                                                 </td>
                                             </tr>
 

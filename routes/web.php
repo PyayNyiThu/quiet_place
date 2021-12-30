@@ -52,7 +52,7 @@ Route::namespace('Frontend')->group(function() {
 
     Route::get('/customer-booking-list/{id}', 'PageController@customerBookingList')->name('frontend.customer_booking_list')->middleware('auth:customer');
 
-    Route::get('/customer-booking/{customer_id}/detail/{room_id}', 'PageController@customerBookingDetail')->name('frontend.customer_booking_detail')->middleware('auth:customer');
+    Route::get('/customer-booking/{customer_id}/detail/{booking_id}', 'PageController@customerBookingDetail')->name('frontend.customer_booking_detail')->middleware('auth:customer');
 });
 
 
