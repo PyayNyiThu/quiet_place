@@ -37,7 +37,7 @@ class RoomController extends Controller
         }
 
         $room = new Room;
-        $room->photo=$path;
+        $room->photo = $path;
         $room->price = $request->price;
         $room->description = $request->description;
         $room->roomtype_id = $request->roomtype_id;

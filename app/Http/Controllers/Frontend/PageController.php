@@ -13,8 +13,8 @@ use App\Http\Controllers\Controller;
 class PageController extends Controller
 {
     public function index() {
-        $townships = Township::all();
-        $room_type = RoomType::all();
+        $townships = Township::select('id', 'name')->get();
+        $room_type = RoomType::select('id', 'name')->get();
 
         return view('frontend.index', compact('townships', 'room_type'));
     }
@@ -28,10 +28,12 @@ class PageController extends Controller
         $room_type = $request->room_type;
         $booking_date = $request->booking_date;
         
-        $townships = Township::all();
-        $room_types = Roomtype::all();
+        $townships = Township::select('id', 'name')->get();
+        $room_types = RoomType::select('id', 'name')->get();
 
-        $rooms = Room::where(function ($query) use ($township, $room_type) {
+        $rooms = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'size', 'capacity')
+        ->with(['roomtype:id,name', 'township:id,name'])
+        ->where(function ($query) use ($township, $room_type) {
             if("" != $township) {
                 $query->where('township_id', $township);
             }
@@ -47,20 +49,31 @@ class PageController extends Controller
     }
 
     public function roomPageDetail(Request $request, $id) {
-        $room = Room::findOrFail($id);
+        $room = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'size', 'capacity')
+                ->with(['roomtype:id,name', 'township:id,name'])
+                ->findOrFail($id);
+
         $booking_date = $request->booking_date;
     
         return view('frontend.room_page_detail', compact('room','booking_date'));
     }
 
     public function customerBookingList($id) {
-        $booking_list = Booking::where('customer_id', $id)->get();
+        $booking_list = Booking::select('id', 'booking_no', 'customer_id', 'room_id', 'booking_date', 'time', 'status')
+        ->with(['room:id,price,photo,description,roomtype_id,township_id,size,capacity',
+                'room.roomtype:id,name',
+                'room.township:id,name'])
+        ->where('customer_id', $id)->get();
 
         return view('frontend.customer_booking_list', compact('booking_list'));
     }
 
     public function customerBookingDetail($customer_id, $booking_id) {
-        $booking = Booking::where('customer_id', $customer_id)->findOrFail($booking_id);
+        $booking = Booking::select('id', 'booking_no', 'customer_id', 'room_id', 'booking_date', 'time', 'status')
+        ->with(['room:id,price,photo,description,roomtype_id,township_id,size,capacity',
+                'room.roomtype:id,name',
+                'room.township:id,name'])
+        ->where('customer_id', $customer_id)->findOrFail($booking_id);
     
         return view('frontend.customer_booking_detail', compact('booking'));
     }

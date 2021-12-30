@@ -49,7 +49,7 @@
                                 <div class="col-sm-10">
                                     <select name="customer_id" class="custom-select" id="customer_id">
                                         @foreach ($customer as $row)
-                                            <option value="{{ $row->id }}" <?php if($booking->customer_id==$row->id) {?>selected
+                                            <option value="{{ $row->id }}" <?php if($booking->customer_id == $row->id) {?>selected
                                                 <?php } ?>>{{ $row->name }}, {{ $row->phone }}</option>
                                         @endforeach
                                     </select>
@@ -68,7 +68,7 @@
                                 <div class="col-sm-10">
                                     <select name="room_id" class="custom-select" id="room_id">
                                         @foreach ($room as $row)
-                                            <option value="{{ $row->id }}" <?php if($booking->room_id==$row->id) {?>selected
+                                            <option value="{{ $row->id }}" <?php if($booking->room_id == $row->id) {?>selected
                                                 <?php } ?>>{{ $row->roomtype->name }}, {{ $row->township->name }} Township, {{ $row->price }} MMK</option>
                                         @endforeach
                                     </select>

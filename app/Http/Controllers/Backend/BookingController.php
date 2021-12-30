@@ -12,14 +12,20 @@ use Illuminate\Support\Facades\Auth;
 class BookingController extends Controller
 {
     public function index() {
-        $bookings = Booking::select('id', 'booking_no', 'customer_id', 'room_id', 'booking_date', 'time', 'status')->with(['customer:id,name,email,phone', 'room:id,price,photo,roomtype_id,township_id,size,capacity', 'room.township:id,name', 'room.roomtype:id,name'])->orderBy('id', 'desc')->get();
+        $bookings = Booking::select('id', 'booking_no', 'customer_id', 'room_id', 'booking_date', 'time', 'status')
+        ->with(['customer:id,name,email,phone',
+                'room:id,price,photo,roomtype_id,township_id,size,capacity',
+                'room.township:id,name',
+                'room.roomtype:id,name'])
+        ->orderBy('id', 'desc')
+        ->get();
 
         return view('backend.bookings.index', compact('bookings'));
     }
 
     public function create() {
-        $customer = Customer::all();
-        $room = Room::all();
+        $customer = Customer::select('id', 'name')->get();
+        $room = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'size', 'capacity')->get();
 
         return view('backend.bookings.create', compact('customer', 'room'));
     }
@@ -56,9 +62,8 @@ class BookingController extends Controller
 
     public function edit($id) {
         $booking = Booking::findOrFail($id);
-        $customer = Customer::all();
-        $room = Room::all();
-        // dd($room);die();
+        $customer = Customer::select('id', 'name', 'phone')->get();
+        $room = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'size', 'capacity')->get();
 
         return view('backend.bookings.edit', compact('booking', 'customer', 'room'));
     }

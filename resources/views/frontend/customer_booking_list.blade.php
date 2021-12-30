@@ -5,43 +5,45 @@
     <!-- Rooms Area Start -->
     <div class="roberto-rooms-area">
         <div class="container">
-            @if($booking_list->count())
-            <h2 class="text-center mb-5 mt-3 booking-section">Your Booking List</h2>
-            <div class="row">
-                @foreach ($booking_list as $row)
-                    <div class="col-12 col-lg-6">
-                        <!-- Single Room Area -->
-                        <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp" data-wow-delay="100ms">
-                            <!-- Room Thumbnail -->
-                            <div class="room-thumbnail">
-                                {{-- <a href="{{ route('frontend.room_page_detail', $row->id) }}"> --}}
-                                <img src="{{ asset($row->room->photo) }}" alt=""><!-- </a> -->
-                            </div>
-                            <!-- Room Content -->
-                            <div class="room-content">
-                                <h2>{{ $row->room->roomtype->name }}</h2>
-                                <h4>{{ $row->room->price }} MMK <span>/ Period</span></h4>
-                                {{-- <div class="room-feature"> --}}
+            @if ($booking_list->count())
+                <h2 class="text-center mb-5 mt-3 booking-section">Your Booking List</h2>
+                <div class="row">
+                    @foreach ($booking_list as $row)
+                        <div class="col-12 col-lg-6">
+                            <!-- Single Room Area -->
+                            <div class="single-room-area d-flex align-items-center mb-50 wow fadeInUp"
+                                data-wow-delay="100ms">
+                                <!-- Room Thumbnail -->
+                                <div class="room-thumbnail">
+                                    {{-- <a href="{{ route('frontend.room_page_detail', $row->id) }}"> --}}
+                                    <img src="{{ asset($row->room->photo) }}" alt=""><!-- </a> -->
+                                </div>
+                                <!-- Room Content -->
+                                <div class="room-content">
+                                    <h2>{{ $row->room->roomtype->name }}</h2>
+                                    <h4>{{ $row->room->price }} MMK <span>/ Period</span></h4>
+                                    {{-- <div class="room-feature"> --}}
                                     <h6>Size: <span>{{ $row->room->size }} ft</span></h6>
                                     <h6>Capacity: <span>Max person {{ $row->room->capacity }}</span></h6>
                                     <h6>Township: <span>{{ $row->room->township->name }}</span></h6>
                                     <h6>Date: <span>{{ $row->booking_date }}</span></h6>
                                     <h6>Time: <span>{{ $row->time }}</span></h6>
-                                {{-- </div> --}}
+                                    {{-- </div> --}}
 
-                                <form method="get" action="{{ route('frontend.customer_booking_detail', [$row->customer_id, $row->id]) }}">
-                                    <button type="submit" class="btn view-detail-btn">View Details <i
-                                            class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-                                </form>
+                                    <form method="get"
+                                        action="{{ route('frontend.customer_booking_detail', [$row->customer_id, $row->id]) }}">
+                                        <button type="submit" class="btn view-detail-btn">View Details <i
+                                                class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                                    </form>
+                                </div>
                             </div>
+                            <!-- Single Room Area -->
+                            <!-- Pagination -->
                         </div>
-                        <!-- Single Room Area -->
-                        <!-- Pagination -->
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
             @else
-            <h2 class="text-center mb-5 mt-3 booking-section text-danger">You have no booking!</h2>
+                <h2 class="text-center mb-5 mt-3 booking-section text-danger">You have no booking!</h2>
             @endif
         </div>
     </div>
@@ -97,7 +99,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <h3 class="text-center text-danger"> {{@session('error')}} </h3>
+                    <h3 class="text-center text-danger"> {{ @session('error') }} </h3>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" data-dismiss="modal"
@@ -108,4 +110,3 @@
     </div>
 
 @endsection
-

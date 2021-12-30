@@ -2,7 +2,6 @@
 
 @section('content')
 
-    {{-- <form method="post" action="{{ route('book.store') }}" class="m-5" enctype="multipart/form-data"> --}}
     @csrf
     <section class="ftco-section">
         <div class="container">
@@ -105,10 +104,10 @@
                                                     Time
                                                 </td>
                                                 <td class="col-8">
-                                                    {{-- @foreach($booking_time as $row)
+                                                    {{-- @foreach ($booking_time as $row)
                                                     {{$row->time}},
                                                     @endforeach --}}
-                                                    {{$booking->time}}
+                                                    {{ $booking->time }}
                                                 </td>
                                             </tr>
 
@@ -124,7 +123,8 @@
                                     </table>
 
                                     <hr />
-                                    <a href="{{route('frontend.customer_booking_list', Auth::guard('customer')->user()->id)}}">
+                                    <a
+                                        href="{{ route('frontend.customer_booking_list', Auth::guard('customer')->user()->id) }}">
                                         <button type="button" class="btn roberto-btn btn-block checkout">Back</button>
                                     </a>
                                 </div>
@@ -135,6 +135,6 @@
             </div>
         </div>
     </section>
- <!-- .section -->
+    <!-- .section -->
 
 @endsection
