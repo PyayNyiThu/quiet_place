@@ -98,7 +98,12 @@
                                     </td>
                                     <td class="align-middle">{{ $row->booking_date }}</td>
                                     <td class="align-middle">{{ $row->time }}</td>
-                                    <td class="align-middle">{{ $row->status }}</td>
+
+                                    @if($row->status == 1)
+                                        <td class="align-middle text-primary"><a href="{{url('admin/change-status/' . $row->id)}}">New Booking</a></td>
+                                    @else
+                                    <td class="align-middle text-success">Read Booking</td>
+                                    @endif
                                     {{-- <td>
                                         @foreach ($row->services as $service)
                                             {{ $service->name }} ,

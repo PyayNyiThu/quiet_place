@@ -74,7 +74,7 @@ class BookingController extends Controller
         $booking->room_id = $request->room_id;
         $booking->booking_date = $request->booking_date;
         $booking->time = $request->booking_time;
-        $booking->status = 1;
+        // $booking->status = 1;
         $booking->save();
 
         return redirect()->route('bookings.index')->with('update', 'Success updated booking!');
@@ -85,6 +85,20 @@ class BookingController extends Controller
         $booking->delete();
 
         return redirect()->route('bookings.index')->with('delete', 'Success deleted booking!');
+    }
+
+    public function changeStatus($id) {
+        $booking = Booking::findOrFail($id);
+        $booking->status = 0;
+        $booking->save();
+
+        return back();
+    }
+
+    public function newBookingList() {
+        $bookings = Booking::where('status', 1)->get();
+
+        return view('backend.bookings.new-booking-list', compact('bookings'));
     }
 
     //getBookingByid for ajax

@@ -80,4 +80,8 @@ Route::prefix('admin')->namespace('Backend')->middleware('auth')->group(function
     Route::resource('/customers', 'CustomerController');
 
     Route::resource('/users', 'UserController');
+
+    Route::get('/change-status/{id}', 'BookingController@changeStatus');
+
+    Route::get('/new-booking-list', 'BookingController@newBookingList');
 });
