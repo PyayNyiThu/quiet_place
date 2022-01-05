@@ -8,8 +8,15 @@ use Illuminate\Http\Request;
 
 class TownshipController extends Controller
 {
+    public function __construct() {
+        $this->middleware('permission:township-list|township-create|township-edit|township-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:township-create', ['only' => ['create','store']]);
+        $this->middleware('permission:township-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:township-delete', ['only' => ['destroy']]);
+    }
+
     public function index() {
-        $townships = Township::select('id', 'name')->orderBy('id', 'desc')->get();
+        $townships = Township::select('id', 'name', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
 
         return view('backend.townships.index', compact('townships'));
     }
@@ -48,10 +55,17 @@ class TownshipController extends Controller
         return redirect()->route('townships.index')->with('update', 'Success updated township!');
     }
 
-    public function destroy($id) { 
+    public function destroy($id) {
         $township = Township::findOrFail($id);
         $township->delete();
 
         return redirect()->route('townships.index')->with('delete', 'Success deleted township!');
+    }
+
+    public function restore($id) {
+        $township = Township::onlyTrashed()->findOrFail($id);
+        $township->restore();
+
+        return redirect()->route('townships.index')->with('restore', 'Success restored township!');
     }
 }

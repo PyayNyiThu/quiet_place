@@ -14,10 +14,13 @@
                     </div>
 
                     <div class="offset-2 col-2">
-                        <a href="{{ route('room-types.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
-                            <i class="fas fa-plus"></i>
-                            Add New
-                        </a>
+                        @can('room_type-create')
+                            <a href="{{ route('room-types.create') }}"
+                                class="btn btn-info btn-sm btn-block float-right mmfont">
+                                <i class="fas fa-plus"></i>
+                                Add New
+                            </a>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -29,7 +32,9 @@
                             <tr align="center">
                                 <th>No</th>
                                 <th>Name</th>
-                                <th>Action</th>
+                                @if (auth()->user()->can('room_type-edit') || auth()->user()->can('room_type-delete') || auth()->user()->can('room_type-restore'))
+                                    <td align="center"><b>Action</b></td>
+                                @endif
                             </tr>
                         </thead>
 
@@ -41,26 +46,46 @@
                                 <tr align="center">
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $row->name }}</td>
+
+                                    @if (auth()->user()->can('room_type-edit') || auth()->user()->can('room_type-delete') || auth()->user()->can('room_type-restore'))
                                     <td>
                                         <!-- <a href="#" class="btn btn-outline-success mmfont">
-                                          <i class="fas fa-eye"></i> 
-                                          Details
-                                      </a> -->
-                                        <a href="{{ route('room-types.edit', $row->id) }}"
-                                            class="btn btn-outline-primary mr-2 mmfont">
-                                            <i class="fas fa-edit"></i>
-                                            Edit
-                                        </a>
+                                              <i class="fas fa-eye"></i> 
+                                              Details
+                                          </a> -->
+                                        @can('room_type-edit')
+                                            <a href="{{ route('room-types.edit', $row->id) }}"
+                                                class="btn btn-outline-primary mr-2 mmfont">
+                                                <i class="fas fa-edit"></i>
+                                                Edit
+                                            </a>
+                                        @endcan
 
                                         <form method="post" action="{{ route('room-types.destroy', $row->id) }}"
                                             class="d-inline-block">
                                             @csrf
                                             @method('DELETE')
+                                            @can('room_type-delete')
+                                                @if (!$row->trashed())
 
-                                            <button type="submit" class="btn btn-outline-danger mmfont show_confirm"
-                                                data-id="{{ $row->id }}"><i class="fas fa-trash"></i> Delete</button>
+                                                    <button type="submit"
+                                                        class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                            class="fas fa-trash"></i> Delete</button>
+                                                @endif
+                                            @endcan
                                         </form>
+
+                                        @can('room_type-restore')
+                                            @if ($row->trashed())
+                                                <a href="{{ route('room-types.restore', $row->id) }}"
+                                                    class="btn btn-outline-warning mr-2 mmfont restore_confirm">
+                                                    <i class="fas fa-trash-restore"></i>
+                                                    Restore
+                                                </a>
+                                            @endif
+                                        @endcan
                                     </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
@@ -79,7 +104,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.show_confirm', function(e) {
+            $(document).on('click', '.delete_confirm', function(e) {
                 var form = $(this).closest("form");
                 e.preventDefault();
 
@@ -90,6 +115,21 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
+                    }
+                })
+            });
+
+            $(document).on('click', '.restore_confirm', function(e) {
+                const url = $(this).attr('href');
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure, you want to restore?',
+                    showCancelButton: true,
+                    confirmButtonText: `Confirm`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = url;
                     }
                 })
             });

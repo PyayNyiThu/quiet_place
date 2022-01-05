@@ -8,8 +8,15 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+    public function __construct() {
+        $this->middleware('permission:service-list|service-create|service-edit|service-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:service-create', ['only' => ['create','store']]);
+        $this->middleware('permission:service-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:service-delete', ['only' => ['destroy']]);
+    }
+
     public function index() {
-        $services = Service::select('id', 'name', 'photo')->orderBy('id', 'desc')->get();
+        $services = Service::select('id', 'name', 'photo', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
 
         return view('backend.services.index', compact('services'));
     }
@@ -80,5 +87,12 @@ class ServiceController extends Controller
         $service->delete();
 
         return redirect()->route('services.index')->with('delete', 'Success deleted service!');
+    }
+
+    public function restore($id) {
+        $service = Service::onlyTrashed()->findOrFail($id);
+        $service->restore();
+
+        return redirect()->route('services.index')->with('restore', 'Success restored serv$service!');
     }
 }

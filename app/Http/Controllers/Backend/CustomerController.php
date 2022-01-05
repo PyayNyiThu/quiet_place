@@ -9,8 +9,15 @@ use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
+    public function __construct() {
+        $this->middleware('permission:customer-list|customer-create|customer-edit|customer-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:customer-create', ['only' => ['create','store']]);
+        $this->middleware('permission:customer-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:customer-delete', ['only' => ['destroy']]);
+    }
+
     public function index() {
-        $customers = Customer::select('id', 'name', 'password', 'email', 'phone', 'address')->orderBy('id', 'desc')->get();
+        $customers = Customer::select('id', 'name', 'password', 'email', 'phone', 'address', 'deleted_at')->orderBy('id', 'desc')->withTrashed()->get();
 
         return view('backend.customers.index', compact('customers'));
     }
@@ -74,5 +81,12 @@ class CustomerController extends Controller
         $customer->delete();
 
         return redirect()->route('customers.index')->with('delete', 'Success deleted customer!');
+    }
+
+    public function restore($id) {
+        $customer = Customer::onlyTrashed()->findOrFail($id);
+        $customer->restore();
+
+        return redirect()->route('customers.index')->with('restore', 'Success restored customer!');
     }
 }

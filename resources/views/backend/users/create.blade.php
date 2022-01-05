@@ -73,6 +73,38 @@
                                 </div>
                             </div>
 
+                            {{-- <div class="form-group row">
+                                <label for="roles" class="col-sm-2 col-form-label mmfont"> Role </label>
+                                <div class="col-sm-10">
+                                    {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
+                                    @error('roles')
+                                        <div class=" alert alert-danger">
+                                            <ul>
+                                                <li>{{ $message }}</li>
+                                            </ul>
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div> --}}
+
+                            <div class="form-group row">
+                                <label for="role_id" class="col-sm-2 col-form-label mmfont"> Role </label>
+                                <div class="col-sm-10">
+                                    <select name="roles" class="custom-select" id="role_id">
+                                        @foreach ($roles as $row)
+                                            <option value="{{ $row }}">{{ $row }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('roles')
+                                        <div class=" alert alert-danger">
+                                            <ul>
+                                                <li>{{ $message }}</li>
+                                            </ul>
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <label for="address" class="col-sm-2 col-form-label mmfont"> Address </label>
                                 <div class="col-sm-10">

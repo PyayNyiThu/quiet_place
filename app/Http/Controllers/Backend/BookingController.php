@@ -11,8 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+    public function __construct() {
+        $this->middleware('permission:booking-list|booking-create|booking-edit|booking-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:booking-create', ['only' => ['create','store']]);
+        $this->middleware('permission:booking-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:booking-delete', ['only' => ['destroy']]);
+    }
+
     public function index() {
-        $bookings = Booking::select('id', 'booking_no', 'customer_id', 'room_id', 'booking_date', 'time', 'status')
+        $bookings = Booking::select('id', 'booking_no', 'customer_id', 'room_id', 'booking_date', 'time', 'status', 'deleted_at')
+        ->withTrashed()
         ->with(['customer:id,name,email,phone',
                 'room:id,price,photo,roomtype_id,township_id,size,capacity',
                 'room.township:id,name',
@@ -85,6 +93,13 @@ class BookingController extends Controller
         $booking->delete();
 
         return redirect()->route('bookings.index')->with('delete', 'Success deleted booking!');
+    }
+
+    public function restore($id) {
+        $booking = Booking::onlyTrashed()->findOrFail($id);
+        $booking->restore();
+
+        return redirect()->route('bookings.index')->with('restore', 'Success restored booking!');
     }
 
     public function changeStatus($id) {

@@ -66,14 +66,28 @@
                         
                                                     <button class="btn roberto-btn btn-block mb-5">Login</button>
                         
+                                                    <p class="text-center">Test account for admin dashboard</p>
+
                                                     <div class="d-flex justify-content-between">
-                                                        <a href="{{ route('register') }}">Create new account</a>
+                                                        {{-- <a href="{{ route('register') }}">Create new account</a> --}}
                         
                                                         {{-- @if (Route::has('password.request'))
                                                             <a href="{{ route('password.request') }}">
                                                                 {{ __('Forgot Your Password?') }}
                                                             </a>
                                                         @endif --}}
+                                                        
+                                                        <code>
+                                                            Email - alice@gmail.com <br>
+                                                            Password - password <br>
+                                                            Role - Admin
+                                                        </code>
+                                                        
+                                                        <code>
+                                                            Email - bob@gmail.com <br>
+                                                            Password - password <br>
+                                                            Role - User
+                                                        </code>
                                                     </div>
                                                 </form>
                                             </div>

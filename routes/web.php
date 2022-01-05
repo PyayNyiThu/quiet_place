@@ -69,17 +69,35 @@ Route::prefix('admin')->namespace('Backend')->middleware('auth')->group(function
     
     Route::resource('/rooms', 'RoomController');
 
+    Route::get('/rooms/{id}/restore', 'RoomController@restore')->name('rooms.restore');
+
     Route::resource('/room-types', 'RoomTypeController');
+
+    Route::get('/room-types/{id}/restore', 'RoomTypeController@restore')->name('room-types.restore');    
     
     Route::resource('/services', 'ServiceController');
 
+    Route::get('/services/{id}/restore', 'ServiceController@restore')->name('services.restore');
+
     Route::resource('/townships', 'TownshipController');
+
+    Route::get('/townships/{id}/restore', 'TownshipController@restore')->name('townships.restore');
 
     Route::resource('/bookings', 'BookingController');
 
+    Route::get('/bookings/{id}/restore', 'BookingController@restore')->name('bookings.restore');
+
     Route::resource('/customers', 'CustomerController');
 
+    Route::get('/customers/{id}/restore', 'CustomerController@restore')->name('customers.restore');
+
     Route::resource('/users', 'UserController');
+
+    Route::get('/users/{id}/restore', 'UserController@restore')->name('users.restore');
+
+    Route::resource('/roles', 'RoleController');
+
+    // Route::get('/roles/{id}/restore', 'RoleController@restore')->name('roles.restore');
 
     Route::get('/change-status/{id}', 'BookingController@changeStatus');
 

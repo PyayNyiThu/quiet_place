@@ -15,10 +15,12 @@
                     </div>
 
                     <div class="offset-2 col-2">
-                        <a href="{{ route('services.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
-                            <i class="fas fa-plus"></i>
-                            Add New
-                        </a>
+                        @can('service-create')
+                            <a href="{{ route('services.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
+                                <i class="fas fa-plus"></i>
+                                Add New
+                            </a>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -31,7 +33,9 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Photo</th>
-                                <th>Action</th>
+                                @if (auth()->user()->can('service-edit') || auth()->user()->can('service-delete') || auth()->user()->can('service-restore'))
+                                    <td align="center"><b>Action</b></td>
+                                @endif
                             </tr>
                         </thead>
 
@@ -43,27 +47,49 @@
                                 <tr align="center">
                                     <td class="align-middle">{{ $i++ }}</td>
                                     <td class="align-middle">{{ $row->name }}</td>
-                                    <td class="align-middle"><img src="{{ asset($row->photo) }}" width="100" height="100"></td>
-                                    <td class="align-middle">
-                                        <!-- <a href="#" class="btn btn-outline-success mmfont">
-                                          <i class="fas fa-eye"></i> 
-                                          Details
-                                      </a> -->
-                                        <a href="{{ route('services.edit', $row->id) }}"
-                                            class="btn btn-outline-primary mr-2 mmfont">
-                                            <i class="fas fa-edit"></i>
-                                            Edit
-                                        </a>
+                                    <td class="align-middle"><img src="{{ asset($row->photo) }}" width="100"
+                                            height="100"></td>
 
-                                        <form method="post" action="{{ route('services.destroy', $row->id) }}"
-                                            class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
+                                    @if (auth()->user()->can('service-edit') || auth()->user()->can('service-delete') || auth()->user()->can('service-restore'))
+                                        <td class="align-middle">
+                                            <!-- <a href="#" class="btn btn-outline-success mmfont">
+                                                <i class="fas fa-eye"></i> 
+                                                Details
+                                            </a> -->
+                                            @can('service-edit')
+                                                <a href="{{ route('services.edit', $row->id) }}"
+                                                    class="btn btn-outline-primary mr-2 mmfont">
+                                                    <i class="fas fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            @endcan
 
-                                            <button type="submit" class="btn btn-outline-danger mmfont show_confirm"
-                                                data-id="{{ $row->id }}"><i class="fas fa-trash"></i> Delete</button>
-                                        </form>
-                                    </td>
+                                            <form method="post" action="{{ route('services.destroy', $row->id) }}"
+                                                class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                @can('service-delete')
+
+                                                    @if (!$row->trashed())
+
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                class="fas fa-trash"></i> Delete</button>
+                                                    @endif
+                                                @endcan
+                                            </form>
+
+                                            @can('service-restore')
+                                                @if ($row->trashed())
+                                                    <a href="{{ route('services.restore', $row->id) }}"
+                                                        class="btn btn-outline-warning mr-2 mmfont restore_confirm">
+                                                        <i class="fas fa-trash-restore"></i>
+                                                        Restore
+                                                    </a>
+                                                @endif
+                                            @endcan
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
@@ -78,8 +104,8 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.show_confirm', function(e) {
-                var form =  $(this).closest("form");
+            $(document).on('click', '.delete_confirm', function(e) {
+                var form = $(this).closest("form");
                 e.preventDefault();
 
                 Swal.fire({
@@ -89,6 +115,21 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
+                    }
+                })
+            });
+
+            $(document).on('click', '.restore_confirm', function(e) {
+                const url = $(this).attr('href');
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure, you want to restore?',
+                    showCancelButton: true,
+                    confirmButtonText: `Confirm`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = url;
                     }
                 })
             });

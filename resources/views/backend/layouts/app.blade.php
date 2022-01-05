@@ -196,6 +196,13 @@
             title: '{{ session('delete') }}'
             })
         @endif
+
+        @if (session('restore'))
+            Toast.fire({
+            icon: 'success',
+            title: '{{ session('restore') }}'
+            })
+        @endif
     </script>
 
 

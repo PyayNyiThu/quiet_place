@@ -27,7 +27,9 @@
                                 <th>Booking Date</th>
                                 <th>Time</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                @if (auth()->user()->can('booking-edit') || auth()->user()->can('booking-delete') || auth()->user()->can('booking-restore'))
+                                    <td align="center"><b>Action</b></td>
+                                @endif
                             </tr>
                         </thead>
 
@@ -40,7 +42,8 @@
                                     <td class="align-middle">{{ $i++ }}</td>
                                     <td class="align-middle">{{ $row->booking_no }}</td>
                                     <td class="align-middle">
-                                        <a href="{{ route('customers.show', $row->customer->id) }}" class="btn">
+                                        <a href="{{ route('customers.show', $row->customer->id) }}"
+                                            class="btn">
                                             <table class="table table-bordered">
                                                 <tr>
                                                     <th>Name</th>
@@ -99,37 +102,55 @@
                                     <td class="align-middle">{{ $row->booking_date }}</td>
                                     <td class="align-middle">{{ $row->time }}</td>
 
-                                    @if($row->status == 1)
-                                        <td class="align-middle text-primary"><a href="{{url('admin/change-status/' . $row->id)}}">New Booking</a></td>
+                                    @if ($row->status == 1)
+                                        <td class="align-middle text-primary"><a
+                                                href="{{ url('admin/change-status/' . $row->id) }}">New Booking</a></td>
                                     @else
-                                    <td class="align-middle text-success">Read Booking</td>
+                                        <td class="align-middle text-success">Read Booking</td>
                                     @endif
-                                    {{-- <td>
-                                        @foreach ($row->services as $service)
-                                            {{ $service->name }} ,
-                                        @endforeach
-                                    </td> --}}
-                                    <td class="align-middle">
-                                        <a href="{{ route('bookings.show', $row->id) }}"
-                                            class="btn btn-outline-success mmfont mb-2">
-                                            <i class="fas fa-eye"></i>
-                                            Details
-                                        </a>
-                                        <a href="{{ route('bookings.edit', $row->id) }}"
-                                            class="btn btn-outline-primary mmfont mb-2">
-                                            <i class="fas fa-edit"></i>
-                                            Edit
-                                        </a>
 
-                                        <form method="post" action="{{ route('bookings.destroy', $row->id) }}"
-                                            class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
+                                    @if (auth()->user()->can('booking-edit') || auth()->user()->can('booking-delete') || auth()->user()->can('booking-restore'))
+                                        <td class="align-middle">
+                                            <a href="{{ route('bookings.show', $row->id) }}"
+                                                class="btn btn-outline-success mmfont mb-2">
+                                                <i class="fas fa-eye"></i>
+                                                Details
+                                            </a>
 
-                                            <button type="submit" class="btn btn-outline-danger mmfont show_confirm"><i
-                                                    class="fas fa-trash"></i> Delete</button>
-                                        </form>
-                                    </td>
+                                            @can('booking-edit')
+                                                <a href="{{ route('bookings.edit', $row->id) }}"
+                                                    class="btn btn-outline-primary mmfont mb-2">
+                                                    <i class="fas fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            @endcan
+
+                                            <form method="post" action="{{ route('bookings.destroy', $row->id) }}"
+                                                class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                @can('booking-delete')
+
+                                                    @if (!$row->trashed())
+
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                class="fas fa-trash"></i> Delete</button>
+                                                    @endif
+                                                @endcan
+                                            </form>
+
+                                            @can('booking-restore')
+                                                @if ($row->trashed())
+                                                    <a href="{{ route('bookings.restore', $row->id) }}"
+                                                        class="btn btn-outline-warning mr-2 mmfont restore_confirm">
+                                                        <i class="fas fa-trash-restore"></i>
+                                                        Restore
+                                                    </a>
+                                                @endif
+                                            @endcan
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
@@ -148,7 +169,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.show_confirm', function(e) {
+            $(document).on('click', '.delete_confirm', function(e) {
                 var form = $(this).closest("form");
                 e.preventDefault();
 
@@ -159,6 +180,21 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
+                    }
+                })
+            });
+
+            $(document).on('click', '.restore_confirm', function(e) {
+                const url = $(this).attr('href');
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure, you want to restore?',
+                    showCancelButton: true,
+                    confirmButtonText: `Confirm`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = url;
                     }
                 })
             });

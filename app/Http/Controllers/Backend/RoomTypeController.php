@@ -8,8 +8,15 @@ use Illuminate\Http\Request;
 
 class RoomTypeController extends Controller
 {
+    public function __construct() {
+        $this->middleware('permission:room_type-list|room_type-create|room_type-edit|room_type-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:room_type-create', ['only' => ['create','store']]);
+        $this->middleware('permission:room_type-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:room_type-delete', ['only' => ['destroy']]);
+    }
+
     public function index() {
-        $room_types = RoomType::select('id', 'name')->orderBy('id', 'desc')->get();
+        $room_types = RoomType::select('id', 'name', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
 
         return view('backend.room_types.index', compact('room_types'));
     }
@@ -55,5 +62,12 @@ class RoomTypeController extends Controller
         $room_type->delete();
 
         return redirect()->route('room-types.index')->with('delete', 'Success deleted roomtype!');
+    }
+
+    public function restore($id) {
+        $room_type = RoomType::onlyTrashed()->findOrFail($id);
+        $room_type->restore();
+
+        return redirect()->route('room-types.index')->with('restore', 'Success restored roomtype!');
     }
 }

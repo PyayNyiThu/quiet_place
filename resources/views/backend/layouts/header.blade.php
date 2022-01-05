@@ -171,7 +171,7 @@
 
         <div class="widget-content-left  ml-3 header-user-info">
             <div class="widget-heading">
-                {{ auth()->user()->name }}
+                {{ ucwords(auth()->user()->name) }}
             </div>
             <div class="widget-subheading">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->phone }}</span>

@@ -11,8 +11,16 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:room-list|room-create|room-edit|room-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:room-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:room-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:room-delete', ['only' => ['destroy']]);
+    }
+
     public function index() {
-        $rooms = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'capacity', 'size')->with(['services:id,name', 'roomtype:id,name', 'township:id,name'])->orderBy('id', 'desc')->get();
+        $rooms = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'capacity', 'size', 'deleted_at')->withTrashed()->with(['services:id,name', 'roomtype:id,name', 'township:id,name'])->orderBy('id', 'desc')->get();
 
         return view('backend.rooms.index', compact('rooms'));
     }
@@ -104,4 +112,10 @@ class RoomController extends Controller
         return redirect()->route('rooms.index')->with('delete', 'Success deleted room!');
     }
 
+    public function restore($id) {
+        $room = Room::onlyTrashed()->findOrFail($id);
+        $room->restore();
+
+        return redirect()->route('rooms.index')->with('restore', 'Success restored room!');
+    }
 }

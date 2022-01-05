@@ -14,10 +14,12 @@
                     </div>
 
                     <div class="offset-2 col-2">
-                        <a href="{{ route('users.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
-                            <i class="fas fa-plus"></i>
-                            Add New
-                        </a>
+                        @can('user-create')
+                            <a href="{{ route('users.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
+                                <i class="fas fa-plus"></i>
+                                Add New
+                            </a>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -32,7 +34,10 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <td align="center"><b>Action</b></td>
+                                <th>Roles</th>
+                                @if (auth()->user()->can('user-edit') || auth()->user()->can('user-delete') || auth()->user()->can('user-restore'))
+                                    <td align="center"><b>Action</b></td>
+                                @endif
                             </tr>
                         </thead>
 
@@ -43,25 +48,53 @@
                             @foreach ($users as $row)
                                 <tr align="center">
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $row->name }}</td>
+                                    <td>{{ ucwords($row->name) }}</td>
                                     <td>{{ $row->email }}</td>
                                     <td>{{ $row->phone }}</td>
                                     <td>{{ $row->address }}</td>
                                     <td>
-                                        <a href="{{ route('users.edit', $row->id) }}" class="btn btn-outline-primary mr-2 mmfont">
-                                            <i class="fas fa-edit"></i>
-                                            Edit
-                                        </a>
-
-                                        <form method="post" action="{{ route('users.destroy', $row->id) }}"
-                                            class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-outline-danger mmfont show_confirm"><i
-                                                    class="fas fa-trash"></i> Delete</button>
-                                        </form>
+                                        @if (!empty($row->getRoleNames()))
+                                            @foreach ($row->getRoleNames() as $v)
+                                                <label class="badge badge-success">{{ $v }}</label>
+                                            @endforeach
+                                        @endif
                                     </td>
+
+                                    @if (auth()->user()->can('user-edit') || auth()->user()->can('user-delete') || auth()->user()->can('user-restore'))
+                                        <td>
+                                            @can('user-edit')
+                                                <a href="{{ route('users.edit', $row->id) }}"
+                                                    class="btn btn-outline-primary mr-2 mmfont">
+                                                    <i class="fas fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            @endcan
+
+                                            <form method="post" action="{{ route('users.destroy', $row->id) }}"
+                                                class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                @can('user-delete')
+                                                    @if (!$row->trashed())
+
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                class="fas fa-trash"></i> Delete</button>
+                                                    @endif
+                                                @endcan
+                                            </form>
+
+                                            @can('user-restore')
+                                                @if ($row->trashed())
+                                                    <a href="{{ route('users.restore', $row->id) }}"
+                                                        class="btn btn-outline-warning mr-2 mmfont restore_confirm">
+                                                        <i class="fas fa-trash-restore"></i>
+                                                        Restore
+                                                    </a>
+                                                @endif
+                                            @endcan
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
@@ -80,7 +113,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.show_confirm', function(e) {
+            $(document).on('click', '.delete_confirm', function(e) {
                 var form = $(this).closest("form");
                 e.preventDefault();
 
@@ -91,6 +124,21 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
+                    }
+                })
+            });
+
+            $(document).on('click', '.restore_confirm', function(e) {
+                const url = $(this).attr('href');
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure, you want to restore?',
+                    showCancelButton: true,
+                    confirmButtonText: `Confirm`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = url;
                     }
                 })
             });

@@ -14,10 +14,12 @@
                     </div>
 
                     <div class="offset-2 col-2">
-                        <a href="{{ route('rooms.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
-                            <i class="fas fa-plus"></i>
-                            Add New
-                        </a>
+                        @can('room-create')
+                            <a href="{{ route('rooms.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
+                                <i class="fas fa-plus"></i>
+                                Add New
+                            </a>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -36,7 +38,9 @@
                                 <th>Size</th>
                                 <th>Capacity</th>
                                 <th>Service</th>
-                                <td align="center"><b>Action</b></td>
+                                @if (auth()->user()->can('room-edit') || auth()->user()->can('room-delete') || auth()->user()->can('room-restore'))
+                                    <td align="center"><b>Action</b></td>
+                                @endif
                             </tr>
                         </thead>
 
@@ -50,7 +54,7 @@
                                     <td>{{ $row->price }} MMK</td>
                                     <td><img src="{{ asset($row->photo) }}" width="100" height="100"></td>
                                     <td>{{ $row->description }}</td>
-                                    <td>{{ $row->roomtype->name}}</td>
+                                    <td>{{ $row->roomtype->name }}</td>
                                     <td>{{ $row->township->name }}</td>
                                     <td>{{ $row->size }}</td>
                                     <td>{{ $row->capacity }}</td>
@@ -59,25 +63,49 @@
                                             {{ $service->name }} ,
                                         @endforeach
                                     </td>
-                                    <td>
-                                        <a href="{{ route('rooms.show', $row->id) }}" class="btn btn-outline-success mb-2 mmfont">
-                                            <i class="fas fa-eye"></i>
-                                            Details
-                                        </a>
-                                        <a href="{{ route('rooms.edit', $row->id) }}" class="btn btn-outline-primary mb-2 mmfont">
-                                            <i class="fas fa-edit"></i>
-                                            Edit
-                                        </a>
 
-                                        <form method="post" action="{{ route('rooms.destroy', $row->id) }}"
-                                            class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
+                                    @if (auth()->user()->can('room-edit') || auth()->user()->can('room-delete') || auth()->user()->can('room-restore'))
+                                        <td>
+                                            <a href="{{ route('rooms.show', $row->id) }}"
+                                                class="btn btn-outline-success mb-2 mmfont">
+                                                <i class="fas fa-eye"></i>
+                                                Details
+                                            </a>
 
-                                            <button type="submit" class="btn btn-outline-danger mmfont show_confirm"><i
-                                                    class="fas fa-trash"></i> Delete</button>
-                                        </form>
-                                    </td>
+                                            @can('room-create')
+                                                <a href="{{ route('rooms.edit', $row->id) }}"
+                                                    class="btn btn-outline-primary mb-2 mmfont">
+                                                    <i class="fas fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            @endcan
+
+                                            <form method="post" action="{{ route('rooms.destroy', $row->id) }}"
+                                                class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                @can('room-delete')
+                                                    @if (!$row->trashed())
+
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                class="fas fa-trash"></i> Delete</button>
+                                                    @endif
+                                                @endcan
+                                            </form>
+
+                                            @can('room-restore')
+                                                @if ($row->trashed())
+                                                    <a href="{{ route('rooms.restore', $row->id) }}"
+                                                        class="btn btn-outline-warning mr-2 mmfont restore_confirm">
+                                                        <i class="fas fa-trash-restore"></i>
+                                                        Restore
+                                                    </a>
+                                                @endif
+                                            @endcan
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
@@ -96,7 +124,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.show_confirm', function(e) {
+            $(document).on('click', '.delete_confirm', function(e) {
                 var form = $(this).closest("form");
                 e.preventDefault();
 
@@ -107,6 +135,21 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
+                    }
+                })
+            });
+
+            $(document).on('click', '.restore_confirm', function(e) {
+                const url = $(this).attr('href');
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure, you want to restore?',
+                    showCancelButton: true,
+                    confirmButtonText: `Confirm`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = url;
                     }
                 })
             });

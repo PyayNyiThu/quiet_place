@@ -14,10 +14,12 @@
                     </div>
 
                     <div class="offset-2 col-2">
-                        <a href="{{ route('customers.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
-                            <i class="fas fa-plus"></i>
-                            Add New
-                        </a>
+                        @can('customer-create')
+                            <a href="{{ route('customers.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
+                                <i class="fas fa-plus"></i>
+                                Add New
+                            </a>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -32,7 +34,9 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <td align="center"><b>Action</b></td>
+                                @if (auth()->user()->can('customer-edit') || auth()->user()->can('customer-delete') || auth()->user()->can('customer-restore'))
+                                    <td align="center"><b>Action</b></td>
+                                @endif
                             </tr>
                         </thead>
 
@@ -47,21 +51,42 @@
                                     <td>{{ $row->email }}</td>
                                     <td>{{ $row->phone }}</td>
                                     <td>{{ $row->address }}</td>
-                                    <td>
-                                        <a href="{{ route('customers.edit', $row->id) }}" class="btn btn-outline-primary mr-2 mmfont">
-                                            <i class="fas fa-edit"></i>
-                                            Edit
-                                        </a>
 
-                                        <form method="post" action="{{ route('customers.destroy', $row->id) }}"
-                                            class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
+                                    @if (auth()->user()->can('customer-edit') || auth()->user()->can('customer-delete') || auth()->user()->can('customer-restore'))
+                                        <td>
+                                            @can('customer-edit')
+                                                <a href="{{ route('customers.edit', $row->id) }}"
+                                                    class="btn btn-outline-primary mr-2 mmfont">
+                                                    <i class="fas fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            @endcan
 
-                                            <button type="submit" class="btn btn-outline-danger mmfont show_confirm"><i
-                                                    class="fas fa-trash"></i> Delete</button>
-                                        </form>
-                                    </td>
+                                            <form method="post" action="{{ route('customers.destroy', $row->id) }}"
+                                                class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                @can('customer-delete')
+                                                    @if (!$row->trashed())
+
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                class="fas fa-trash"></i> Delete</button>
+                                                    @endif
+                                                @endcan
+                                            </form>
+
+                                            @can('customer-restore')
+                                                @if ($row->trashed())
+                                                    <a href="{{ route('customers.restore', $row->id) }}"
+                                                        class="btn btn-outline-warning mr-2 mmfont restore_confirm">
+                                                        <i class="fas fa-trash-restore"></i>
+                                                        Restore
+                                                    </a>
+                                                @endif
+                                            @endcan
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
@@ -80,7 +105,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.show_confirm', function(e) {
+            $(document).on('click', '.delete_confirm', function(e) {
                 var form = $(this).closest("form");
                 e.preventDefault();
 
@@ -91,6 +116,21 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
+                    }
+                })
+            });
+
+            $(document).on('click', '.restore_confirm', function(e) {
+                const url = $(this).attr('href');
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure, you want to restore?',
+                    showCancelButton: true,
+                    confirmButtonText: `Confirm`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = url;
                     }
                 })
             });

@@ -82,6 +82,14 @@
             <span>Users</span></a>
     </li>
 
+    @hasrole('Admin')
+    <li class="nav-item @yield('roles.active')">
+        <a class="nav-link" href="{{ route('roles.index') }}">
+            <i class="fas fa-user"></i>
+            <span>Role</span></a>
+    </li>
+    @endhasrole
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
