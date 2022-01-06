@@ -203,6 +203,13 @@
             title: '{{ session('restore') }}'
             })
         @endif
+
+        @if (session('not_allow'))
+            Toast.fire({
+            icon: 'error',
+            title: '{{ session('not_allow') }}'
+            })
+        @endif
     </script>
 
 

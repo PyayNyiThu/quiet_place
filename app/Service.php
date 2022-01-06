@@ -13,4 +13,8 @@ class Service extends Model
     protected $dates = ['deleted_at'];
     
     protected $fillable = ['name', 'photo'];
+
+    public function rooms() {
+        return $this->belongsToMany('App\Room');
+      }
 }

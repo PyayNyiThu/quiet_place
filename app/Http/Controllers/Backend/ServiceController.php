@@ -84,9 +84,14 @@ class ServiceController extends Controller
 
     public function destroy($id) { 
         $service = Service::findOrFail($id);
-        $service->delete();
 
-        return redirect()->route('services.index')->with('delete', 'Success deleted service!');
+        if(0 == $service->rooms()->count()) {
+            $service->delete();
+    
+            return redirect()->route('services.index')->with('delete', 'Success deleted service!');
+        } else {
+            return redirect()->route('services.index')->with('not_allow', 'This service is not allow to delete!');
+        }
     }
 
     public function restore($id) {

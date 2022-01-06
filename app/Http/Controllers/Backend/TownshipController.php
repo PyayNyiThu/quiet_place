@@ -57,9 +57,14 @@ class TownshipController extends Controller
 
     public function destroy($id) {
         $township = Township::findOrFail($id);
-        $township->delete();
 
-        return redirect()->route('townships.index')->with('delete', 'Success deleted township!');
+        if(0 == $township->rooms()->count()) {
+            $township->delete();
+            
+            return redirect()->route('townships.index')->with('delete', 'Success deleted township!');
+        } else {
+            return redirect()->route('townships.index')->with('not_allow', 'This township is not allow to delete!');
+        }
     }
 
     public function restore($id) {

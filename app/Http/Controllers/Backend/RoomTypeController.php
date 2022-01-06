@@ -59,9 +59,14 @@ class RoomTypeController extends Controller
 
     public function destroy($id) { 
         $room_type = RoomType::findOrFail($id);
-        $room_type->delete();
 
-        return redirect()->route('room-types.index')->with('delete', 'Success deleted roomtype!');
+        if(0 == $room_type->rooms()->count()) {
+            $room_type->delete();
+
+            return redirect()->route('room-types.index')->with('delete', 'Success deleted roomtype!');
+        } else {
+            return redirect()->route('room-types.index')->with('not_allow', 'This roomtype is not allow to delete!');
+        }
     }
 
     public function restore($id) {

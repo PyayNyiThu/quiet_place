@@ -107,9 +107,14 @@ class RoomController extends Controller
 
     public function destroy($id) { 
         $room = Room::findOrFail($id);
-        $room->delete();
 
-        return redirect()->route('rooms.index')->with('delete', 'Success deleted room!');
+        if(0 == $room->bookings()->count()) {
+            $room->delete();
+    
+            return redirect()->route('rooms.index')->with('delete', 'Success deleted room!');
+        } else {
+            return redirect()->route('rooms.index')->with('not_allow', 'This room is not allow to delete!');
+        }
     }
 
     public function restore($id) {

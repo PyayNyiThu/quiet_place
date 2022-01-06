@@ -13,4 +13,8 @@ class Township extends Model
     protected $dates = ['deleted_at'];
     
     protected $fillable = ['name'];
+
+    public function rooms() {
+        return $this->hasMany('App\Room');
+    }
 }
