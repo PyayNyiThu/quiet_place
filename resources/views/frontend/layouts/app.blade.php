@@ -72,6 +72,10 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{ route('frontend.profile') }}">
+                                                    {{ __('Profile') }}
+                                                </a>
+
                                                 <a class="dropdown-item" href="{{ route('frontend.customer_booking_list', Auth::guard('customer')->user()->id) }}">
                                                     {{ __('Booking List') }}
                                                 </a>

@@ -65,6 +65,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id ,
             'phone' => 'required|unique:users,phone,' . $id ,
+            'address' => 'required',
             'roles' => 'required'
         ]);
 

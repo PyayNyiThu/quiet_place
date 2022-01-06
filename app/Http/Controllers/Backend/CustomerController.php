@@ -63,6 +63,7 @@ class CustomerController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:customers,email,' . $id ,
             'phone' => 'required|unique:customers,phone,' . $id ,
+            'address' => 'required',
         ]);
 
         $customer = Customer::findOrFail($id);

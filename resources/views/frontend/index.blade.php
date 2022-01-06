@@ -194,6 +194,25 @@
         </div>
     </div>
 
+    <div class="modal fade" id="updateCustomerConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header roberto-btn">
+                    Confirm Box
+                </div>
+
+                <div class="modal-body">
+                    <h3 class="text-center" style="color: #1cc3b2;">{{session('update_customer_data')}}</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal"
+                        style="background: #1cc3b2;color: white;">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
@@ -201,6 +220,10 @@
         $(document).ready(function() {
             @if (session('create'))
                 $('#bookingConfirmModal').modal('show');
+            @endif
+
+            @if (session('update_customer_data'))
+                $('#updateCustomerConfirmModal').modal('show');
             @endif
         });
     </script>

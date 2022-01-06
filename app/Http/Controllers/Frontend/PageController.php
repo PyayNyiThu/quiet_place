@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Room;
 use App\Booking;
-use App\Service;
 use App\RoomType;
 use App\Township;
+use App\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PageController extends Controller
 {
@@ -56,6 +58,31 @@ class PageController extends Controller
         $booking_date = $request->booking_date;
     
         return view('frontend.room_page_detail', compact('room','booking_date'));
+    }
+
+    public function profile() {
+        $customer = Auth::guard('customer')->user();
+
+        return view('frontend.customer_profile', compact('customer'));
+    }
+
+    public function profileUpdate(Request $request, $id) {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:customers,email,' . $id ,
+            'phone' => 'required|unique:customers,phone,' . $id ,
+            'address' => 'required',
+        ]);
+
+        $customer = Customer::findOrFail($id);
+        $customer->name = $request->name;
+        $customer->password = $request->password ? Hash::make($request->password) : $customer->password;
+        $customer->email = $request->email;
+        $customer->phone = $request->phone;
+        $customer->address = $request->address;
+        $customer->save();
+
+        return redirect()->route('home')->with('update_customer_data', 'Success updated your data!');
     }
 
     public function customerBookingList($id) {

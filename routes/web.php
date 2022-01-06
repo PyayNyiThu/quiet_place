@@ -53,6 +53,10 @@ Route::namespace('Frontend')->group(function() {
     Route::get('/customer-booking-list/{id}', 'PageController@customerBookingList')->name('frontend.customer_booking_list')->middleware('auth:customer');
 
     Route::get('/customer-booking/{customer_id}/detail/{booking_id}', 'PageController@customerBookingDetail')->name('frontend.customer_booking_detail')->middleware('auth:customer');
+
+    Route::get('/customer-profile', 'PageController@profile')->name('frontend.profile')->middleware('auth:customer');
+
+    Route::post('/customer-profile/{id}/update', 'PageController@profileUpdate')->name('frontend.profile-update')->middleware('auth:customer');
 });
 
 

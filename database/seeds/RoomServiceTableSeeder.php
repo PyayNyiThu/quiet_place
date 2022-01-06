@@ -18,11 +18,10 @@ class RoomServiceTableSeeder extends Seeder
 
         for ($i = 0; $i < $length; $i++) {
             $room_id = mt_rand(1, 50);
-            // $service_id = RoomServiceIdGenerate::serviceId();
             $service_id = mt_rand(1, 6);
 
             if (RoomService::where('room_id', $room_id)->where('service_id', $service_id)->exists()) {
-                $service_id = 7;
+                $service_id = 0;
             }
 
             RoomService::create([
@@ -31,6 +30,6 @@ class RoomServiceTableSeeder extends Seeder
             ]);
 
         }
-        RoomService::where('service_id', 7)->delete();
+        RoomService::where('service_id', 0)->delete();
     }
 }
