@@ -44,15 +44,6 @@
                                                     name="booking_date" value="{{ $booking_date }}" required>
                                             </div>
 
-                                            <!-- <div class="col-6 col-md-2 col-lg-2">
-                                                            <label for="time">Time</label>
-                                                            <select name="time" id="time" class="form-control">
-                                                                <option value="9am-12am">9am-12am</option>
-                                                                <option value="12am-3pm">12am-3pm</option>
-                                                                <option value="3pm-5pm">3pm-5pm</option>
-                                                            </select>
-                                                        </div> -->
-
                                             <div class="col-12 col-sm-12 col-md-12 col-lg-3">
                                                 <button type="submit"
                                                     class="form-control btn roberto-btn w-100">Search</button>
