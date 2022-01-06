@@ -12,7 +12,7 @@
     <title>Quiet Place</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('frontend/img/core-img/meeting-room.png') }}">
+    <link rel="icon" href="{{ asset('frontend/img/bg-img/meeting-room.png') }}">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ asset('frontend/style.css') }}">

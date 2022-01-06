@@ -13,7 +13,7 @@
     <title>Quiet Place Dashboard</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('frontend/img/core-img/meeting-room.png') }}">
+    <link rel="icon" href="{{ asset('frontend/img/bg-img/meeting-room.png') }}">
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">

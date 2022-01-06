@@ -2,30 +2,10 @@
 
 @section('content')
 
-
-
-
-    <!-- @if (session('message'))
-                    
-                                            <div class="alert alert-info alert-sm" role="alert">
-                  <p class="text-dark">{{ session('message') }}</p>
-                </div>
-
-
-
-                   
-                                                
-                                            @endif -->
-
-
-
     <!-- Header Area End -->
 
     <!-- Welcome Area Start -->
     <section class="welcome-area">
-        <!-- @if (session('message'))
-                                                <p class="text-success">{{ session('message') }}</p>
-                                            @endif -->
         <!-- Single Welcome Slide -->
         <div class="single-welcome-slide bg-img bg-overlay"
             style="background-image: url({{ asset('frontend/img/bg-img/ba9.jpg') }});"
@@ -207,7 +187,8 @@
                     <h3 class="text-center" style="color: #1cc3b2;">Your Booking is Successfully!</h3>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal" style="background: #1cc3b2;color: white;">Ok</button>
+                    <button type="button" class="btn" data-dismiss="modal"
+                        style="background: #1cc3b2;color: white;">Ok</button>
                 </div>
             </div>
         </div>
