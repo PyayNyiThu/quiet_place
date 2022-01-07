@@ -49,41 +49,44 @@
 
                                     @if (auth()->user()->can('room_type-edit') || auth()->user()->can('room_type-delete') || auth()->user()->can('room_type-restore'))
                                     <td>
-                                        <!-- <a href="#" class="btn btn-outline-success mmfont">
-                                              <i class="fas fa-eye"></i> 
-                                              Details
-                                          </a> -->
-                                        @can('room_type-edit')
-                                            <a href="{{ route('room-types.edit', $row->id) }}"
-                                                class="btn btn-outline-primary mr-2 mmfont">
-                                                <i class="fas fa-edit"></i>
-                                                Edit
-                                            </a>
-                                        @endcan
 
-                                        <form method="post" action="{{ route('room-types.destroy', $row->id) }}"
-                                            class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            @can('room_type-delete')
-                                                @if (!$row->trashed())
-
-                                                    <button type="submit"
-                                                        class="btn btn-outline-danger mmfont delete_confirm"><i
-                                                            class="fas fa-trash"></i> Delete</button>
-                                                @endif
-                                            @endcan
-                                        </form>
-
-                                        @can('room_type-restore')
-                                            @if ($row->trashed())
+                                        @if ($row->trashed())
+                                            @can('room_type-restore')
                                                 <a href="{{ route('room-types.restore', $row->id) }}"
                                                     class="btn btn-outline-warning mr-2 mmfont restore_confirm">
                                                     <i class="fas fa-trash-restore"></i>
                                                     Restore
                                                 </a>
-                                            @endif
-                                        @endcan
+                                            @endcan
+
+                                        @else
+
+                                            <!-- <a href="#" class="btn btn-outline-success mmfont">
+                                                <i class="fas fa-eye"></i> 
+                                                Details
+                                            </a> -->
+                                            @can('room_type-edit')
+                                                <a href="{{ route('room-types.edit', $row->id) }}"
+                                                    class="btn btn-outline-primary mr-2 mmfont">
+                                                    <i class="fas fa-edit"></i>
+                                                    Edit
+                                                </a>
+                                            @endcan
+
+                                            <form method="post" action="{{ route('room-types.destroy', $row->id) }}"
+                                                class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                @can('room_type-delete')
+                                                    @if (!$row->trashed())
+
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                class="fas fa-trash"></i> Delete</button>
+                                                    @endif
+                                                @endcan
+                                            </form>
+                                        @endif
                                     </td>
                                     @endif
                                 </tr>

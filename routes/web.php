@@ -14,12 +14,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('customer/login', 'Auth\CustomerLoginController@showLoginForm');
 
 Route::get('customer/login-prev', 'Auth\CustomerLoginController@showLoginFormPrev');

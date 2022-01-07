@@ -6,4 +6,10 @@ return [
         '1 pm - 4 pm' => '1 PM - 4 PM',
         '5 pm - 8 pm' => '5 PM - 8 PM'
     ],
+
+    'STATUS' => [
+        'active' => 'Active',
+        'banned' => 'Banned',
+        'locked' => 'Locked',
+    ],
 ];

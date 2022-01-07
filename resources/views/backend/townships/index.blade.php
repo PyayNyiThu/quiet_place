@@ -59,42 +59,44 @@
 
                                     @if (auth()->user()->can('township-edit') || auth()->user()->can('township-delete') || auth()->user()->can('township-restore'))
                                         <td>
-                                            <!-- <a href="#" class="btn btn-outline-success mmfont">
-                                                                <i class="fas fa-eye"></i> 
-                                                                Details
-                                                                </a> -->
-                                            @can('township-edit')
-                                                <a href="{{ route('townships.edit', $row->id) }}"
-                                                    class="btn btn-outline-primary mr-2 mmfont">
-                                                    <i class="fas fa-edit"></i>
-                                                    Edit
-                                                </a>
-                                            @endcan
 
-                                            <form method="post" action="{{ route('townships.destroy', $row->id) }}"
-                                                class="d-inline-block" id="form">
-                                                @csrf
-                                                @method('DELETE')
-                                                @can('township-delete')
-
-                                                    @if (!$row->trashed())
-
-                                                        <button type="submit"
-                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
-                                                                class="fas fa-trash"></i> Delete</button>
-                                                    @endif
-                                                @endcan
-                                            </form>
-
-                                            @can('township-restore')
-                                                @if ($row->trashed())
+                                            @if ($row->trashed())
+                                                @can('township-restore')
                                                     <a href="{{ route('townships.restore', $row->id) }}"
                                                         class="btn btn-outline-warning mr-2 mmfont restore_confirm">
                                                         <i class="fas fa-trash-restore"></i>
                                                         Restore
                                                     </a>
-                                                @endif
-                                            @endcan
+                                                @endcan
+
+                                            @else
+                                            <!-- <a href="#" class="btn btn-outline-success mmfont">
+                                                                <i class="fas fa-eye"></i> 
+                                                                Details
+                                                                </a> -->
+                                                @can('township-edit')
+                                                    <a href="{{ route('townships.edit', $row->id) }}"
+                                                        class="btn btn-outline-primary mr-2 mmfont">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </a>
+                                                @endcan
+
+                                                <form method="post" action="{{ route('townships.destroy', $row->id) }}"
+                                                    class="d-inline-block" id="form">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    @can('township-delete')
+
+                                                        @if (!$row->trashed())
+
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                    class="fas fa-trash"></i> Delete</button>
+                                                        @endif
+                                                    @endcan
+                                                </form>
+                                            @endif
                                         </td>
                                     @endif
                                 </tr>

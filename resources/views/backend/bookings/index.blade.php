@@ -111,44 +111,45 @@
 
                                     @if (auth()->user()->can('booking-edit') || auth()->user()->can('booking-delete') || auth()->user()->can('booking-restore'))
                                         <td class="align-middle">
-                                            <a href="{{ route('bookings.show', $row->id) }}"
-                                                class="btn btn-outline-success mmfont mb-2">
-                                                <i class="fas fa-eye"></i>
-                                                Details
-                                            </a>
-
-                                            @can('booking-edit')
-                                                <a href="{{ route('bookings.edit', $row->id) }}"
-                                                    class="btn btn-outline-primary mmfont mb-2">
-                                                    <i class="fas fa-edit"></i>
-                                                    Edit
-                                                </a>
-                                            @endcan
-
-                                            <form method="post" action="{{ route('bookings.destroy', $row->id) }}"
-                                                class="d-inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                @can('booking-delete')
-
-                                                    @if (!$row->trashed())
-
-                                                        <button type="submit"
-                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
-                                                                class="fas fa-trash"></i> Delete</button>
-                                                    @endif
-                                                @endcan
-                                            </form>
-
-                                            @can('booking-restore')
-                                                @if ($row->trashed())
+                                            @if ($row->trashed())
+                                                @can('booking-restore')
                                                     <a href="{{ route('bookings.restore', $row->id) }}"
                                                         class="btn btn-outline-warning mr-2 mmfont restore_confirm">
                                                         <i class="fas fa-trash-restore"></i>
                                                         Restore
                                                     </a>
-                                                @endif
-                                            @endcan
+                                                @endcan
+                                                
+                                            @else
+                                                <a href="{{ route('bookings.show', $row->id) }}"
+                                                    class="btn btn-outline-success mmfont mb-2">
+                                                    <i class="fas fa-eye"></i>
+                                                    Details
+                                                </a>
+
+                                                @can('booking-edit')
+                                                    <a href="{{ route('bookings.edit', $row->id) }}"
+                                                        class="btn btn-outline-primary mmfont mb-2">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </a>
+                                                @endcan
+
+                                                <form method="post" action="{{ route('bookings.destroy', $row->id) }}"
+                                                    class="d-inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    @can('booking-delete')
+
+                                                        @if (!$row->trashed())
+
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                    class="fas fa-trash"></i> Delete</button>
+                                                        @endif
+                                                    @endcan
+                                                </form>                                          
+                                            @endif
                                         </td>
                                     @endif
                                 </tr>

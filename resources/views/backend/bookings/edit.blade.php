@@ -104,7 +104,7 @@
                                         @foreach (config('constants.TIME') as $key => $value)
                                             <input class="form-check-input" type="radio"
                                                 id="{{$key}}" value="{{$key}}"
-                                                name="booking_time" <?php if($booking->time==$key) {?>checked
+                                                name="booking_time" <?php if($booking->time == $key) {?>checked
                                                     <?php } ?>>
                                             <label for="{{$key}}"
                                                 class="mr-4 form-check-label">{{$value}}</label>

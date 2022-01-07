@@ -22,9 +22,14 @@
                                             <div class="card-body">
                                                 <h3 class="text-center">Admin Login</h3>
                                                 <p class="text-center text-muted">Fill the form to login</p>
+
+                                                @if (session('message'))
+                                                    <div class="alert alert-danger">{{ session('message') }}</div>
+                                                @endif
+                                                
                                                 <form method="POST" action="{{ route('login') }}">
                                                     @csrf
-                        
+
                                                     {{-- <div class="form-group">
                                                         <label for="phone">Phone</label>
                         
@@ -40,49 +45,51 @@
 
                                                     <div class="form-group">
                                                         <label for="email">Email</label>
-                        
-                                                        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
+
+                                                        <input id="email" type="text"
+                                                            class="form-control @error('email') is-invalid @enderror"
                                                             name="email" value="{{ old('email') }}">
-                        
+
                                                         @error('email')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
                                                     </div>
-                        
+
                                                     <div class="form-group mb-5">
                                                         <label for="password">Password</label>
-                        
+
                                                         <input id="password" type="password"
-                                                            class="form-control @error('password') is-invalid @enderror" name="password">
-                        
+                                                            class="form-control @error('password') is-invalid @enderror"
+                                                            name="password">
+
                                                         @error('password')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
                                                     </div>
-                        
+
                                                     <button class="btn roberto-btn btn-block mb-5">Login</button>
-                        
+
                                                     <p class="text-center">Test account for admin dashboard</p>
 
                                                     <div class="d-flex justify-content-between">
                                                         {{-- <a href="{{ route('register') }}">Create new account</a> --}}
-                        
+
                                                         {{-- @if (Route::has('password.request'))
                                                             <a href="{{ route('password.request') }}">
                                                                 {{ __('Forgot Your Password?') }}
                                                             </a>
                                                         @endif --}}
-                                                        
+
                                                         <code>
                                                             Email - alice@gmail.com <br>
                                                             Password - password <br>
                                                             Role - Admin
                                                         </code>
-                                                        
+
                                                         <code>
                                                             Email - bob@gmail.com <br>
                                                             Password - password <br>

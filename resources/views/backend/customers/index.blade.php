@@ -54,37 +54,40 @@
 
                                     @if (auth()->user()->can('customer-edit') || auth()->user()->can('customer-delete') || auth()->user()->can('customer-restore'))
                                         <td>
-                                            @can('customer-edit')
-                                                <a href="{{ route('customers.edit', $row->id) }}"
-                                                    class="btn btn-outline-primary mr-2 mmfont">
-                                                    <i class="fas fa-edit"></i>
-                                                    Edit
-                                                </a>
-                                            @endcan
 
-                                            <form method="post" action="{{ route('customers.destroy', $row->id) }}"
-                                                class="d-inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                @can('customer-delete')
-                                                    @if (!$row->trashed())
-
-                                                        <button type="submit"
-                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
-                                                                class="fas fa-trash"></i> Delete</button>
-                                                    @endif
-                                                @endcan
-                                            </form>
-
-                                            @can('customer-restore')
-                                                @if ($row->trashed())
+                                            @if ($row->trashed())
+                                                @can('customer-restore')
                                                     <a href="{{ route('customers.restore', $row->id) }}"
                                                         class="btn btn-outline-warning mr-2 mmfont restore_confirm">
                                                         <i class="fas fa-trash-restore"></i>
                                                         Restore
                                                     </a>
-                                                @endif
-                                            @endcan
+                                                @endcan
+
+                                            @else
+
+                                                @can('customer-edit')
+                                                    <a href="{{ route('customers.edit', $row->id) }}"
+                                                        class="btn btn-outline-primary mr-2 mmfont">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </a>
+                                                @endcan
+
+                                                <form method="post" action="{{ route('customers.destroy', $row->id) }}"
+                                                    class="d-inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    @can('customer-delete')
+                                                        @if (!$row->trashed())
+
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                    class="fas fa-trash"></i> Delete</button>
+                                                        @endif
+                                                    @endcan
+                                                </form>
+                                            @endif
                                         </td>
                                     @endif
                                 </tr>

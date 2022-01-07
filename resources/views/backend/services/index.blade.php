@@ -52,42 +52,44 @@
 
                                     @if (auth()->user()->can('service-edit') || auth()->user()->can('service-delete') || auth()->user()->can('service-restore'))
                                         <td class="align-middle">
-                                            <!-- <a href="#" class="btn btn-outline-success mmfont">
-                                                <i class="fas fa-eye"></i> 
-                                                Details
-                                            </a> -->
-                                            @can('service-edit')
-                                                <a href="{{ route('services.edit', $row->id) }}"
-                                                    class="btn btn-outline-primary mr-2 mmfont">
-                                                    <i class="fas fa-edit"></i>
-                                                    Edit
-                                                </a>
-                                            @endcan
 
-                                            <form method="post" action="{{ route('services.destroy', $row->id) }}"
-                                                class="d-inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                @can('service-delete')
-
-                                                    @if (!$row->trashed())
-
-                                                        <button type="submit"
-                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
-                                                                class="fas fa-trash"></i> Delete</button>
-                                                    @endif
-                                                @endcan
-                                            </form>
-
-                                            @can('service-restore')
-                                                @if ($row->trashed())
+                                            @if ($row->trashed())
+                                                @can('service-restore')
                                                     <a href="{{ route('services.restore', $row->id) }}"
                                                         class="btn btn-outline-warning mr-2 mmfont restore_confirm">
                                                         <i class="fas fa-trash-restore"></i>
                                                         Restore
                                                     </a>
-                                                @endif
-                                            @endcan
+                                                @endcan
+
+                                            @else
+                                            <!-- <a href="#" class="btn btn-outline-success mmfont">
+                                                <i class="fas fa-eye"></i> 
+                                                Details
+                                            </a> -->
+                                                @can('service-edit')
+                                                    <a href="{{ route('services.edit', $row->id) }}"
+                                                        class="btn btn-outline-primary mr-2 mmfont">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </a>
+                                                @endcan
+
+                                                <form method="post" action="{{ route('services.destroy', $row->id) }}"
+                                                    class="d-inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    @can('service-delete')
+
+                                                        @if (!$row->trashed())
+
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                    class="fas fa-trash"></i> Delete</button>
+                                                        @endif
+                                                    @endcan
+                                                </form>
+                                            @endif
                                         </td>
                                     @endif
                                 </tr>

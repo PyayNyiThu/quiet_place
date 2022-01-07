@@ -19,7 +19,7 @@ class UserController extends Controller
     }
 
     public function index() {
-        $users = User::select('id', 'name', 'password', 'email', 'phone', 'address', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
+        $users = User::select('id', 'name', 'password', 'email', 'phone', 'address', 'status', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
 
         return view('backend.users.index', compact('users'));
     }
@@ -47,13 +47,14 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->assignRole($request->roles);
+        $user->status = $request->status;
         $user->save();
 
         return redirect()->route('users.index')->with('create', 'Success created user!');
     }
 
     public function edit($id) {
-        $user = User::select('id', 'name', 'password', 'email', 'phone', 'address')->findOrFail($id);
+        $user = User::select('id', 'name', 'password', 'email', 'phone', 'address', 'status')->findOrFail($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
@@ -75,6 +76,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->address = $request->address;
+        $user->status = $request->status;
         $user->save();
 
         DB::table('model_has_roles')->where('model_id',$id)->delete();

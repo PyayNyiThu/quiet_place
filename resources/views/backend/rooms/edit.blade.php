@@ -96,7 +96,7 @@
                                 <div class="col-sm-10">
                                     <select name="roomtype_id" class="custom-select" id="roomtype_id">
                                         @foreach ($roomtype as $row)
-                                            <option value="{{ $row->id }}" <?php if($room->roomtype_id==$row->id) {?>selected
+                                            <option value="{{ $row->id }}" <?php if($room->roomtype_id == $row->id) {?>selected
                                                 <?php } ?>>{{ $row->name }}</option>
                                         @endforeach
                                     </select>

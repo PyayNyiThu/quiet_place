@@ -35,6 +35,7 @@
                                 <th>Phone</th>
                                 <th>Address</th>
                                 <th>Roles</th>
+                                <th>Status</th>
                                 @if (auth()->user()->can('user-edit') || auth()->user()->can('user-delete') || auth()->user()->can('user-restore'))
                                     <td align="center"><b>Action</b></td>
                                 @endif
@@ -60,39 +61,52 @@
                                         @endif
                                     </td>
 
+                                    <td>
+                                        @if($row->status == 'active')
+                                            <label class="badge badge-success">Active</label>
+                                        @elseif($row->status == 'banned')
+                                            <label class="badge badge-danger">Banned</label>
+                                        @else
+                                            <label class="badge badge-warning">Locked</label>
+                                        @endif
+                                    </td>
+
                                     @if (auth()->user()->can('user-edit') || auth()->user()->can('user-delete') || auth()->user()->can('user-restore'))
                                         <td>
-                                            @can('user-edit')
-                                                <a href="{{ route('users.edit', $row->id) }}"
-                                                    class="btn btn-outline-primary mr-2 mmfont">
-                                                    <i class="fas fa-edit"></i>
-                                                    Edit
-                                                </a>
-                                            @endcan
 
-                                            <form method="post" action="{{ route('users.destroy', $row->id) }}"
-                                                class="d-inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                @can('user-delete')
-                                                    @if (!$row->trashed())
-
-                                                        <button type="submit"
-                                                            class="btn btn-outline-danger mmfont delete_confirm"><i
-                                                                class="fas fa-trash"></i> Delete</button>
-                                                    @endif
-                                                @endcan
-                                            </form>
-
-                                            @can('user-restore')
-                                                @if ($row->trashed())
+                                            @if ($row->trashed())
+                                                @can('user-restore')
                                                     <a href="{{ route('users.restore', $row->id) }}"
                                                         class="btn btn-outline-warning mr-2 mmfont restore_confirm">
                                                         <i class="fas fa-trash-restore"></i>
                                                         Restore
                                                     </a>
-                                                @endif
-                                            @endcan
+                                                @endcan
+
+                                            @else
+
+                                                @can('user-edit')
+                                                    <a href="{{ route('users.edit', $row->id) }}"
+                                                        class="btn btn-outline-primary mr-2 mmfont">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </a>
+                                                @endcan
+
+                                                <form method="post" action="{{ route('users.destroy', $row->id) }}"
+                                                    class="d-inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    @can('user-delete')
+                                                        @if (!$row->trashed())
+
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger mmfont delete_confirm"><i
+                                                                    class="fas fa-trash"></i> Delete</button>
+                                                        @endif
+                                                    @endcan
+                                                </form>
+                                            @endif
                                         </td>
                                     @endif
                                 </tr>

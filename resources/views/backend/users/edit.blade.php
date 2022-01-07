@@ -108,6 +108,25 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="status" class="col-sm-2 col-form-label mmfont"> Status </label>
+                                <div class="col-sm-10">
+                                    <select name="status" class="custom-select" id="status">
+                                        @foreach (config('constants.STATUS') as $key => $value)
+                                            <option value="{{ $key }}" <?php if($key == $user->status) {?>selected
+                                                <?php } ?>>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('status')
+                                        <div class=" alert alert-danger">
+                                            <ul>
+                                                <li>{{ $message }}</li>
+                                            </ul>
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="address" class="col-sm-2 col-form-label mmfont"> Address </label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" id="address" rows="3"
