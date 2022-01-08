@@ -21,6 +21,7 @@ class CreateAdminUserSeeder extends Seeder
         	'password' => Hash::make('password'),
             'address' => 'Yangon',
             'phone' => '091234567',
+            'status' => 'active'
         ]);
   
         $role = Role::create(['name' => 'Admin']);
@@ -37,6 +38,7 @@ class CreateAdminUserSeeder extends Seeder
         	'password' => Hash::make('password'),
             'address' => 'Yangon',
             'phone' => '09123123123',
+            'status' => 'banned'
         ]);
   
         $role = Role::create(['name' => 'User']);

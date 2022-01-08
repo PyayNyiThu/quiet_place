@@ -62,6 +62,7 @@ class CustomerRegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
+            'status' => 'active',
             'address' => $data['address'],
         ]);
     }

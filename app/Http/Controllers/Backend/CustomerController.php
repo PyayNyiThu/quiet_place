@@ -17,7 +17,7 @@ class CustomerController extends Controller
     }
 
     public function index() {
-        $customers = Customer::select('id', 'name', 'password', 'email', 'phone', 'address', 'deleted_at')->orderBy('id', 'desc')->withTrashed()->get();
+        $customers = Customer::select('id', 'name', 'password', 'email', 'phone', 'address', 'status', 'deleted_at')->orderBy('id', 'desc')->withTrashed()->get();
 
         return view('backend.customers.index', compact('customers'));
     }
@@ -47,13 +47,14 @@ class CustomerController extends Controller
         $customer->email = $request->email;
         $customer->phone = $request->phone;
         $customer->address = $request->address;
+        $customer->status = $request->status;
         $customer->save();
 
         return redirect()->route('customers.index')->with('create', 'Success created customer!');
     }
 
     public function edit($id) {
-        $customer = Customer::select('id', 'name', 'password', 'email', 'phone', 'address')->findOrFail($id);
+        $customer = Customer::select('id', 'name', 'password', 'email', 'phone', 'address', 'status')->findOrFail($id);
 
         return view('backend.customers.edit', compact('customer'));
     }
@@ -72,6 +73,7 @@ class CustomerController extends Controller
         $customer->email = $request->email;
         $customer->phone = $request->phone;
         $customer->address = $request->address;
+        $customer->status = $request->status;
         $customer->save();
 
         return redirect()->route('customers.index')->with('update', 'Success updated customer!');

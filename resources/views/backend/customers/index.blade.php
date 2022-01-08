@@ -34,6 +34,7 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
+                                <th>Status</th>
                                 @if (auth()->user()->can('customer-edit') || auth()->user()->can('customer-delete') || auth()->user()->can('customer-restore'))
                                     <td align="center"><b>Action</b></td>
                                 @endif
@@ -51,6 +52,16 @@
                                     <td>{{ $row->email }}</td>
                                     <td>{{ $row->phone }}</td>
                                     <td>{{ $row->address }}</td>
+
+                                    <td>
+                                        @if($row->status == 'active')
+                                            <label class="badge badge-success">Active</label>
+                                        @elseif($row->status == 'banned')
+                                            <label class="badge badge-danger">Banned</label>
+                                        @else
+                                            <label class="badge badge-warning">Locked</label>
+                                        @endif
+                                    </td>
 
                                     @if (auth()->user()->can('customer-edit') || auth()->user()->can('customer-delete') || auth()->user()->can('customer-restore'))
                                         <td>

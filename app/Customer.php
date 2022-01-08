@@ -14,5 +14,5 @@ class Customer extends Authenticatable
     protected $table = 'customers';
     protected $dates = ['deleted_at'];
 
-    protected $fillable=['name', 'password', 'email', 'phone', 'address'];
+    protected $fillable=['name', 'password', 'email', 'phone', 'address', 'status'];
 }
