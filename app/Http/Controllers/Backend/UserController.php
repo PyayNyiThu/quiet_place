@@ -56,9 +56,9 @@ class UserController extends Controller
     public function edit($id) {
         $user = User::select('id', 'name', 'password', 'email', 'phone', 'address', 'status')->findOrFail($id);
         $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        $user_role = $user->roles()->first()->name;
 
-        return view('backend.users.edit', compact('user', 'roles', 'userRole'));
+        return view('backend.users.edit', compact('user', 'roles', 'user_role'));
     }
 
     public function update(Request $request, $id) {

@@ -93,10 +93,11 @@
                                 <div class="col-sm-10">
                                     <select name="roles" class="custom-select" id="role_id">
                                         @foreach ($roles as $row)
-                                            <option value="{{ $row }}" <?php if($userRole == $row) {?>selected
+                                            <option value="{{ $row }}" <?php if($user_role == $row) {?>selected
                                                 <?php } ?>>{{ $row }}</option>
                                         @endforeach
                                     </select>
+
                                     @error('role_id')
                                         <div class=" alert alert-danger">
                                             <ul>
