@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Customer;
 
 class CustomerLoginController extends Controller
 {
@@ -56,5 +57,19 @@ class CustomerLoginController extends Controller
     {
         Auth::guard('customer')->logout();
         return redirect('/');
+    }
+
+    protected function hasTooManyLoginAttempts(Request $request)
+    {
+        $maxLoginAttempts = 5;
+        $lockoutTime = 1; // In minutes
+
+        if($this->limiter()->tooManyAttempts($this->throttleKey($request), $maxLoginAttempts, $lockoutTime) == 1){
+            Customer::where('email',$request->email)->update(['status'=>'locked']);
+        }
+
+        return $this->limiter()->tooManyAttempts(
+            $this->throttleKey($request), $maxLoginAttempts, $lockoutTime
+        );
     }
 }

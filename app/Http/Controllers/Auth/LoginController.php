@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function hasTooManyLoginAttempts(Request $request)
+    {
+        $maxLoginAttempts = 5;
+        $lockoutTime = 1; // In minutes
+
+        if($this->limiter()->tooManyAttempts($this->throttleKey($request), $maxLoginAttempts, $lockoutTime) == 1){
+            User::where('email',$request->email)->update(['status'=>'locked']);
+        }
+
+        return $this->limiter()->tooManyAttempts(
+            $this->throttleKey($request), $maxLoginAttempts, $lockoutTime
+        );
     }
 }
