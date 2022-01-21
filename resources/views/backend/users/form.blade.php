@@ -11,9 +11,9 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($user))
-                                Edit Existing User Form
+                                Edit Existing User
                             @else
-                                Add User Form
+                                Add User
                             @endif
                         </h4>
                     </div>

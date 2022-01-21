@@ -26,7 +26,7 @@ class RoleController extends Controller
     public function create() {
         $permission = Permission::get();
 
-        return view('backend.roles.create', compact('permission'));
+        return view('backend.roles.form', compact('permission'));
     }
 
     public function store(Request $request) {
@@ -57,7 +57,7 @@ class RoleController extends Controller
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
 
-        return view('backend.roles.edit', compact('role', 'permission', 'role_permissions'));
+        return view('backend.roles.form', compact('role', 'permission', 'role_permissions'));
     }
 
     public function update(Request $request, $id) {

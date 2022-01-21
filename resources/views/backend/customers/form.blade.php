@@ -104,7 +104,7 @@
                                                 {{ $customer->status == $key ? 'selected' : '' }}> {{ $value }}
                                             </option>
                                         @else
-                                            <option value="{{ $key }}">{{ $value }}</option>
+                                            <option value="{{ $key }}" {{ old('status') == $key ? "selected" : "" }}>{{ $value }}</option>
                                         @endif
                                     @endforeach
                                 </select>
