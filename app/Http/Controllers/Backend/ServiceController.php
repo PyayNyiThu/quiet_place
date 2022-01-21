@@ -16,19 +16,24 @@ class ServiceController extends Controller
     }
 
     public function index() {
-        $services = Service::select('id', 'name', 'photo', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
+        if("Admin" != auth()->user()->roles[0]->name) {
+            $services = Service::select('id', 'name', 'photo', 'deleted_at')->orderBy('id', 'desc')->get();
+        } else {
+            $services = Service::select('id', 'name', 'photo', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
+        }
 
         return view('backend.services.index', compact('services'));
     }
 
     public function create() {
-        return view('backend.services.create');
+        return view('backend.services.form');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            "name"=>'required|max:100',
+            'name' =>'required|max:100',
+            'photo' => 'required',
         ]);
 
         // If exist file, upload file
@@ -54,7 +59,7 @@ class ServiceController extends Controller
     {
         $service = Service::select('id', 'name', 'photo')->findOrFail($id);
 
-        return view('backend.services.edit', compact('service'));
+        return view('backend.services.form', compact('service'));
     }
 
     public function update(Request $request, $id)

@@ -9,7 +9,13 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="m-0 font-weight-bold text-info mmfont">Update Existing Service</h4>
+                        <h4 class="m-0 font-weight-bold text-info mmfont">
+                            @if (isset($service))
+                                Update Existing Service
+                            @else
+                                Add New Service
+                            @endif
+                        </h4>
                     </div>
 
                     <div class="offset-2 col-2">
@@ -24,13 +30,25 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form method="post" action="{{ route('services.update', $service->id) }}" class="m-5"
-                            enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
+                        @if (isset($service))
+                            <form method="post" action="{{ route('services.update', $service->id) }}"
+                                class="m-5" enctype="multipart/form-data">
+                                @method('PUT')
+                            @else
+                                <form method="post" action="{{ route('services.store') }}" class="m-5"
+                                    enctype="multipart/form-data">
+                        @endif
 
+                        @csrf
+
+                        <?php
+                        $name = old('name') != null ? old('name') : (isset($service) ? $service->name : '');
+                        ?>
+
+                        @if (isset($service))
                             <input type="hidden" name="id" value="{{ $service->id }}">
                             <input type="hidden" name="oldphoto" value="{{ $service->photo }}">
+
                             <div class="form-group row">
                                 <label for="profile" class="col-sm-2 col-form-label">Profile</label>
                                 <nav>
@@ -61,12 +79,13 @@
                                 </div>
                             </div>
 
+                        @else
                             <div class="form-group row">
-                                <label for="name" class="col-sm-2 col-form-label mmfont"> Name </label>
+                                <label for="photo" class="col-sm-2 col-form-label mmfont"> Photo </label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="name" placeholder=""
-                                        name="name" value="{{ $service->name }}">
-                                    @error('name')
+                                    <input type="file" class="form-control-file" id="photo" placeholder="" name="photo">
+
+                                    @error('photo')
                                         <div class=" alert alert-danger">
                                             <ul>
                                                 <li>{{ $message }}</li>
@@ -75,11 +94,37 @@
                                     @enderror
                                 </div>
                             </div>
+                        @endif
+
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-2 col-form-label mmfont"> Name </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" placeholder="" name="name"
+                                    value="{{ $name }}">
+                                @error('name')
+                                    <div class=" alert alert-danger">
+                                        <ul>
+                                            <li>{{ $message }}</li>
+                                        </ul>
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
 
 
-                            <button type="submit" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-save"></i> Update
-                            </button>
+                        <div class="form-group row">
+                            <div class="offset-2 col-sm-10">
+
+                                <button type="submit" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-save"></i>
+                                    @if (isset($service))
+                                        Update
+                                    @else
+                                        Create
+                                    @endif
+                                </button>
+                            </div>
+                        </div>
                         </form>
                     </div>
                 </div>
