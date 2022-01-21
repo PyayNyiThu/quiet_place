@@ -22,7 +22,7 @@ class TownshipController extends Controller
     }
 
     public function create() {
-        return view('backend.townships.create');
+        return view('backend.townships.form');
     }
 
     public function store(Request $request) {
@@ -40,7 +40,7 @@ class TownshipController extends Controller
     public function edit($id) {
         $township = Township::select('id', 'name')->findOrFail($id);
 
-        return view('backend.townships.edit', compact('township'));
+        return view('backend.townships.form', compact('township'));
     }
 
     public function update(Request $request, $id) {

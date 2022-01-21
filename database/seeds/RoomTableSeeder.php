@@ -13,7 +13,7 @@ class RoomTableSeeder extends Seeder
      */
     public function run()
     {
-        // $faker = Faker::create();
+        $faker = Faker::create();
         $price = ['20000', '30000', '40000', '50000'];
         $class = ['class1.jpg', 'class2.jpeg', 'class3.jpeg', 'class4.jpg', 'class5.jpeg'];
         $event = ['event1.jpg', 'event2.jpg', 'event3.jpg','event4.jpg','event5.jpg'];
@@ -32,7 +32,7 @@ class RoomTableSeeder extends Seeder
             }
             Room::create([
                 'price' => $price[array_rand($price)],
-                'description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur voluptates autem adipisci totam.',
+                'description' => $faker->sentence,
                 'photo' => $photo,
                 'roomtype_id' => $roomtype_id,
                 'township_id' => rand(1, 5),
