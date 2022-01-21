@@ -17,13 +17,17 @@ class CustomerController extends Controller
     }
 
     public function index() {
-        $customers = Customer::select('id', 'name', 'password', 'email', 'phone', 'address', 'status', 'deleted_at')->orderBy('id', 'desc')->withTrashed()->get();
+        if("Admin" != auth()->user()->roles[0]->name) {
+            $customers = Customer::select('id', 'name', 'password', 'email', 'phone', 'address', 'status', 'deleted_at')->orderBy('id', 'desc')->get();
+        } else {
+            $customers = Customer::select('id', 'name', 'password', 'email', 'phone', 'address', 'status', 'deleted_at')->orderBy('id', 'desc')->withTrashed()->get();
+        }
 
         return view('backend.customers.index', compact('customers'));
     }
 
     public function create() {
-        return view('backend.customers.create');
+        return view('backend.customers.form');
     }
 
     public function show($id) {
@@ -56,7 +60,7 @@ class CustomerController extends Controller
     public function edit($id) {
         $customer = Customer::select('id', 'name', 'password', 'email', 'phone', 'address', 'status')->findOrFail($id);
 
-        return view('backend.customers.edit', compact('customer'));
+        return view('backend.customers.form', compact('customer'));
     }
 
     public function update(Request $request, $id) {
