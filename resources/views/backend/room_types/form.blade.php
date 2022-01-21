@@ -11,7 +11,7 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($room_type))
-                                Update Existing Room Type
+                                Edit Existing Room Type
                             @else
                                 Add New Room Type
                             @endif

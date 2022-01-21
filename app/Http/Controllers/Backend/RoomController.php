@@ -20,7 +20,11 @@ class RoomController extends Controller
     }
 
     public function index() {
-        $rooms = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'capacity', 'size', 'deleted_at')->withTrashed()->with(['services:id,name', 'roomtype:id,name', 'township:id,name'])->orderBy('id', 'desc')->get();
+        if("Admin" != auth()->user()->roles[0]->name) {
+            $rooms = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'capacity', 'size', 'deleted_at')->with(['services:id,name', 'roomtype:id,name', 'township:id,name'])->orderBy('id', 'desc')->get();
+        } else {
+            $rooms = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'capacity', 'size', 'deleted_at')->withTrashed()->with(['services:id,name', 'roomtype:id,name', 'township:id,name'])->orderBy('id', 'desc')->get();
+        }
 
         return view('backend.rooms.index', compact('rooms'));
     }
@@ -29,10 +33,18 @@ class RoomController extends Controller
         $roomtype = RoomType::select('id', 'name')->get();
         $township = Township::select('id', 'name')->get();
         $service = Service::select('id', 'name')->get();
-        return view('backend.rooms.create',compact('roomtype', 'township', 'service'));
+        return view('backend.rooms.form',compact('roomtype', 'township', 'service'));
     }
 
     public function store(Request $request) {
+        $request->validate([
+            'price' => 'required',
+            'photo' => 'required',
+            'description' => 'required',
+            'size' => 'required',
+            'capacity' => 'required',
+        ]);
+
         // If exist file, upload file
         if($request->hasfile('photo')) {
             $photo = $request->file('photo');
@@ -73,7 +85,7 @@ class RoomController extends Controller
         $service = Service::select('id', 'name')->get();
         $room_service = $room->services()->wherePivot('room_id','=',$id)->get();
     
-        return view('backend.rooms.edit', compact('roomtype', 'township', 'service', 'room', 'room_service'));
+        return view('backend.rooms.form', compact('roomtype', 'township', 'service', 'room', 'room_service'));
     }
 
     public function update(Request $request, $id) {

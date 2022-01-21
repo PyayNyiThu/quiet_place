@@ -11,7 +11,7 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($township))
-                                Update Existing Township
+                                Edit Existing Township
                             @else
                                 Add New Township
                             @endif

@@ -11,7 +11,7 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($service))
-                                Update Existing Service
+                                Edit Existing Service
                             @else
                                 Add New Service
                             @endif

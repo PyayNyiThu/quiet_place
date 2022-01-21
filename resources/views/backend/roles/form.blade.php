@@ -11,7 +11,7 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($role))
-                                Update Existing Role
+                                Edit Existing Role
                             @else
                                 Add New Role
                             @endif

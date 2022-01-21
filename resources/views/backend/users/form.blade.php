@@ -118,7 +118,7 @@
                                                 {{ $user_role == $row ? 'selected' : '' }}>
                                                 {{ $row }}</option>
                                         @else
-                                            <option value="{{ $row }}" {{ old('roles') == $row ? "selected" : "" }}>{{ $row }}</option>
+                                            <option value="{{ $row }}" {{ old('roles') == $row ? 'selected' : '' }}>{{ $row }}</option>
                                         @endif
                                     @endforeach
                                 </select>
