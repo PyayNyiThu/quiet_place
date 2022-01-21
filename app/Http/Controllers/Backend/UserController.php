@@ -19,7 +19,13 @@ class UserController extends Controller
     }
 
     public function index() {
-        $users = User::select('id', 'name', 'password', 'email', 'phone', 'address', 'status', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
+        if("Admin" != auth()->user()->roles[0]->name) {
+            $users = User::select('id', 'name', 'password', 'email', 'phone', 'address', 'status', 'deleted_at')->orderBy('id', 'desc')->get();
+        } else {
+            $users = User::select('id', 'name', 'password', 'email', 'phone', 'address', 'status', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
+        }
+
+        
 
         return view('backend.users.index', compact('users'));
     }
@@ -27,7 +33,7 @@ class UserController extends Controller
     public function create() {
         $roles = Role::pluck('name','name')->all();
 
-        return view('backend.users.create', compact('roles'));
+        return view('backend.users.form', compact('roles'));
     }
 
     public function store(Request $request) {
@@ -58,7 +64,7 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $user_role = $user->roles()->first()->name;
 
-        return view('backend.users.edit', compact('user', 'roles', 'user_role'));
+        return view('backend.users.form', compact('user', 'roles', 'user_role'));
     }
 
     public function update(Request $request, $id) {
