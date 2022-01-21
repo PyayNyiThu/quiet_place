@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('townships.active', 'active')
+@section('room-types.active', 'active')
 
 @section('content')
 
@@ -10,16 +10,15 @@
                 <div class="row">
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
-                            @if (isset($township))
-                                Update Existing Township
+                            @if (isset($room_type))
+                                Update Existing Room Type Form
                             @else
-                                Add New Township
+                                Add New Room Type Form
                             @endif
                         </h4>
                     </div>
-
                     <div class="offset-2 col-2">
-                        <a href="{{ route('townships.index') }}" class="btn btn-info btn-sm btn-block float-right">
+                        <a href="{{ route('room-types.index') }}" class="btn btn-info btn-sm btn-block float-right">
                             <i class="fas fa-backward"></i>
                             Go Back
                         </a>
@@ -30,20 +29,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        @if (isset($township))
-                            <form method="post" action="{{ route('townships.update', $township->id) }}"
+                        @if (isset($room_type))
+                            <form method="post" action="{{ route('room-types.update', $room_type->id) }}"
                                 class="m-5">
                                 @method('PUT')
-
                             @else
-                                <form method="post" action="{{ route('townships.store') }}" class="m-5"
+                                <form method="post" action="{{ route('room-types.store') }}" class="m-5"
                                     enctype="multipart/form-data">
                         @endif
 
                         @csrf
 
                         <?php
-                            $name = old('name') != null ? old('name') : (isset($township) ? $township->name : '');
+                            $name = old('name') != null ? old('name') : (isset($room_type) ? $room_type->name : '');
                         ?>
 
                         <div class="form-group">
@@ -59,9 +57,10 @@
                             @enderror
                         </div>
 
+
                         <button type="submit" class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-save"></i>
-                            @if (isset($township))
+                            @if (isset($room_type))
                                 Update
                             @else
                                 Create

@@ -16,7 +16,11 @@ class TownshipController extends Controller
     }
 
     public function index() {
-        $townships = Township::select('id', 'name', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
+        if("Admin" != auth()->user()->roles[0]->name) {
+            $townships = Township::select('id', 'name', 'deleted_at')->orderBy('id', 'desc')->get();
+        } else {
+            $townships = Township::select('id', 'name', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
+        }
 
         return view('backend.townships.index', compact('townships'));
     }

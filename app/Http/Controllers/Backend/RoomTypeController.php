@@ -16,14 +16,18 @@ class RoomTypeController extends Controller
     }
 
     public function index() {
-        $room_types = RoomType::select('id', 'name', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
+        if("Admin" != auth()->user()->roles[0]->name) {
+            $room_types = RoomType::select('id', 'name', 'deleted_at')->orderBy('id', 'desc')->get();
+        } else {
+            $room_types = RoomType::select('id', 'name', 'deleted_at')->withTrashed()->orderBy('id', 'desc')->get();
+        }
 
         return view('backend.room_types.index', compact('room_types'));
     }
 
     public function create()
     {
-        return view('backend.room_types.create');
+        return view('backend.room_types.form');
     }
 
     public function store(Request $request) {
@@ -42,7 +46,7 @@ class RoomTypeController extends Controller
     {
         $room_type = RoomType::select('id', 'name')->findOrFail($id);
 
-        return view('backend.room_types.edit', compact('room_type'));
+        return view('backend.room_types.form', compact('room_type'));
     }
 
     public function update(Request $request, $id) {
