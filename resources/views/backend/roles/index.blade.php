@@ -103,6 +103,7 @@
                     title: 'Are you sure, you want to delete?',
                     showCancelButton: true,
                     confirmButtonText: `Confirm`,
+                    reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();

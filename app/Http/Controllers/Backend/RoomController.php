@@ -89,6 +89,13 @@ class RoomController extends Controller
     }
 
     public function update(Request $request, $id) {
+        $request->validate([
+            'price' => 'required',
+            'description' => 'required',
+            'size' => 'required',
+            'capacity' => 'required',
+        ]);
+
         // If exist file, upload file
         if($request->hasfile('photo')) {
             $photo = $request->file('photo');
