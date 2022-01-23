@@ -10,7 +10,7 @@
             <div class="card-header py-3">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="m-0 font-weight-bold text-info mmfont">Booking List</h4>
+                        <h4 class="m-0 font-weight-bold text-info mmfont">{{__('messages.bookings.bookings_list')}}</h4>
                     </div>
                 </div>
             </div>
@@ -20,15 +20,15 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr align="center">
-                                <th>No</th>
-                                <th>Booking No</th>
-                                <th>Customer Data</th>
-                                <th>Room Data</th>
-                                <th>Booking Date</th>
-                                <th>Time</th>
-                                <th>Status</th>
+                                <th>{{__('messages.no')}}</th>
+                                <th>{{__('messages.bookings.booking_no')}}</th>
+                                <th>{{__('messages.bookings.customer_data')}}</th>
+                                <th>{{__('messages.bookings.room_data')}}</th>
+                                <th>{{__('messages.bookings.booking_date')}}</th>
+                                <th>{{__('messages.bookings.time')}}</th>
+                                <th>{{__('messages.status')}}</th>
                                 @if (auth()->user()->can('booking-edit') || auth()->user()->can('booking-delete') || auth()->user()->can('booking-restore'))
-                                    <td align="center"><b>Action</b></td>
+                                <th>{{__('messages.action')}}</th>
                                 @endif
                             </tr>
                         </thead>
@@ -114,24 +114,21 @@
                                             @if ($row->trashed())
                                                 @can('booking-restore')
                                                     <a href="{{ route('bookings.restore', $row->id) }}"
-                                                        class="btn btn-outline-warning mr-2 mmfont restore_confirm">
+                                                        class="btn btn-outline-warning mr-2 mmfont restore_confirm" title="{{__('messages.restore')}}">
                                                         <i class="fas fa-trash-restore"></i>
-                                                        Restore
                                                     </a>
                                                 @endcan
                                                 
                                             @else
                                                 <a href="{{ route('bookings.show', $row->id) }}"
-                                                    class="btn btn-outline-success mmfont mb-2">
+                                                    class="btn btn-outline-success mmfont mb-2" title="{{__('messages.detail')}}">
                                                     <i class="fas fa-eye"></i>
-                                                    Details
                                                 </a>
 
                                                 @can('booking-edit')
                                                     <a href="{{ route('bookings.edit', $row->id) }}"
-                                                        class="btn btn-outline-primary mmfont mb-2">
+                                                        class="btn btn-outline-primary mmfont mb-2" title="{{__('messages.edit')}}">
                                                         <i class="fas fa-edit"></i>
-                                                        Edit
                                                     </a>
                                                 @endcan
 
@@ -144,8 +141,8 @@
                                                         @if (!$row->trashed())
 
                                                             <button type="submit"
-                                                                class="btn btn-outline-danger mmfont delete_confirm"><i
-                                                                    class="fas fa-trash"></i> Delete</button>
+                                                                class="btn btn-outline-danger mmfont delete_confirm" title="{{__('messages.delete')}}"><i
+                                                                    class="fas fa-trash"></i></button>
                                                         @endif
                                                     @endcan
                                                 </form>                                          
@@ -175,9 +172,10 @@
                 e.preventDefault();
 
                 Swal.fire({
-                    title: 'Are you sure, you want to delete?',
+                    title: "{{__('messages.are_you_sure_you_want_to_delete')}}",
                     showCancelButton: true,
-                    confirmButtonText: `Confirm`,
+                    cancelButtonText: `{{__('messages.cancel')}}`,
+                    confirmButtonText: `{{__('messages.confirm')}}`,
                     reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -191,9 +189,11 @@
                 e.preventDefault();
 
                 Swal.fire({
-                    title: 'Are you sure, you want to restore?',
+                    title: "{{__('messages.are_you_sure_you_want_to_restore')}}",
                     showCancelButton: true,
-                    confirmButtonText: `Confirm`,
+                    cancelButtonText: `{{__('messages.cancel')}}`,
+                    confirmButtonText: `{{__('messages.confirm')}}`,
+                    reverseButtons: true,
                     reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {

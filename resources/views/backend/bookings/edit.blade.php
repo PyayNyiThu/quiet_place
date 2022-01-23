@@ -9,13 +9,13 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="m-0 font-weight-bold text-info mmfont">Edit Existing Booking</h4>
+                        <h4 class="m-0 font-weight-bold text-info mmfont">{{__('messages.bookings.edit_booking')}}</h4>
                     </div>
 
                     <div class="offset-2 col-2">
                         <a href="{{ route('bookings.index') }}" class="btn btn-info btn-sm btn-block float-right">
                             <i class="fas fa-backward"></i>
-                            Go Back
+                            {{__('messages.go_back')}}
                         </a>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                             @method('PUT')
 
                             <div class="form-group row">
-                                <label for="booking_no" class="col-sm-2 col-form-label mmfont"> Booking No </label>
+                                <label for="booking_no" class="col-sm-2 col-form-label mmfont">{{__('messages.bookings.booking_no')}} </label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="booking_no" placeholder=""
                                          value="{{$booking->booking_no}}" disabled>
@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="customer_id" class="col-sm-2 col-form-label mmfont">Customer</label>
+                                <label for="customer_id" class="col-sm-2 col-form-label mmfont">{{__('messages.bookings.customer_data')}}</label>
                                 <div class="col-sm-10">
                                     <select name="customer_id" class="custom-select" id="customer_id">
                                         @foreach ($customer as $row)
@@ -64,7 +64,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="room_id" class="col-sm-2 col-form-label mmfont">Room</label>
+                                <label for="room_id" class="col-sm-2 col-form-label mmfont">{{__('messages.bookings.room_data')}}</label>
                                 <div class="col-sm-10">
                                     <select name="room_id" class="custom-select" id="room_id">
                                         @foreach ($room as $row)
@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="booking_date" class="col-sm-2 col-form-label mmfont">Booking Date</label>
+                                <label for="booking_date" class="col-sm-2 col-form-label mmfont">{{__('messages.bookings.booking_date')}}</label>
                                 <div class="col-sm-10">
                                     <input type="date" class="form-control" id="booking_date" placeholder=""
                                         name="booking_date" value="{{$booking->booking_date}}">
@@ -98,7 +98,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-sm-2">Time</div>
+                                <div class="col-sm-2">{{__('messages.bookings.time')}}</div>
                                 <div class="col-sm-10">
                                     <div class="form-check">
                                         @foreach (config('constants.TIME') as $key => $value)
@@ -116,7 +116,7 @@
                             <div class="form-group row">
                                 <div class="offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-outline-primary btn-sm">
-                                        <i class="fas fa-save"></i> Update
+                                        <i class="fas fa-save"></i> {{__('messages.update')}}
                                     </button>
                                 </div>
                             </div>

@@ -1,0 +1,111 @@
+<?php
+
+return [
+    // common
+    'add_new' => 'Add New',
+    'no' => 'No.',
+    'name' => 'Name',
+    'action' => 'Action',
+    'detail' => 'Detail',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'restore' => 'Restore',
+    'go_back' => 'Go Back',
+    'create' => 'Create',
+    'update' => 'Update',
+    'are_you_sure_you_want_to_delete' => 'Are you sure, you want to delete?',
+    'are_you_sure_you_want_to_restore' => 'Are you sure, you want to restore?',
+    'cancel' => 'Cancel',
+    'confirm' => 'Comfirm',
+    'session_create' => 'Success created!',
+    'session_update' => 'Success updated!',
+    'session_delete' => 'Success deleted!',
+    'session_restore' => 'Success restored!',
+    'session_not_allow' => 'Sorry, this is not allowed to delete!',
+    'photo' => 'Photo',
+    'profile' => 'Profile',
+    'old_profile' => 'Old Photo',
+    'new_profile' => 'New Photo',
+    'price' => 'Price',
+    'size' => 'Size',
+    'capacity' => 'Capacity',
+    'township' => 'Township',
+    'status' => 'Status',
+    'email' => 'Email',
+    'phone' => 'Phone',
+    'address' => 'Address',
+    'password' => 'Password',
+
+    'rooms' => [
+        'rooms' => 'Rooms',
+        'rooms_list' => 'Rooms List',
+        'description' => 'Description',
+        'room_type' => 'Room Type',
+        'service' => 'Service',
+        'create_room' => 'Create Room',
+        'edit_room' => 'Edit Room',
+        'room_detail' => 'Room Detail',
+    ],
+
+    'room_types' => [
+        'room_types' => 'Room Types',
+        'room_types_list' => 'Room Types List',
+        'create_room_type' => 'Create Room Type',
+        'edit_room_type' => 'Edit Room Type',
+    ],
+
+    'services' => [
+        'services' => 'Services',
+        'services_list' => 'Services List',
+        'create_service' => 'Create Service',
+        'edit_service' => 'Edit Service',
+    ],
+
+    'townships' => [
+        'townships' => 'Townships',
+        'townships_list' => 'Townships List',
+        'create_township' => 'Create Township',
+        'edit_township' => 'Edit Township',
+    ],
+
+    'bookings' => [
+        'bookings' => 'Bookings',
+        'bookings_list' => 'Bookings List',
+        'booking_no' => 'Booking No.',
+        'customer_data' => 'Customer Data',
+        'room_data' => 'Room Data',
+        'booking_date' => 'Booking Date',
+        'time' => 'Time',
+        'booking_detail' => 'Booking Detail',
+        'customer_name' => 'Customer Name',
+        'customer_email' => 'Customer Email',
+        'customer_phone' => 'Customer Phone',
+        'room_photo' => 'Room Photo',
+        'room_type' => 'Room Type',
+        'edit_booking' => 'Edit Booking',
+        'new_bookings_list' => 'New Bookings List',
+    ],
+
+    'customers' => [
+        'customers' => 'Customers',
+        'customers_list' => 'Customers List',
+        'create_customer' => 'Create Customer',
+        'edit_customer' => 'Edit Customer',
+        'customer_detail' => 'Customer Detail',
+    ],
+
+    'users' => [
+        'users' => 'Users',
+        'users_list' => 'Users List',
+        'create_user' => 'Create User',
+        'edit_user' => 'Edit User',
+    ],
+
+    'roles' => [
+        'roles' => 'Roles',
+        'roles_list' => 'Roles List',
+        'create_role' => 'Create Role',
+        'edit_role' => 'Edit Role',
+        'permissions' => 'Permissions',
+    ],
+];

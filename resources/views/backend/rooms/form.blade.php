@@ -11,9 +11,9 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($room))
-                                Edit Existing Room
+                            {{__('messages.rooms.edit_room')}}
                             @else
-                                Add Room
+                            {{__('messages.rooms.create_room')}}
                             @endif
                         </h4>
                     </div>
@@ -21,7 +21,7 @@
                     <div class="offset-2 col-2">
                         <a href="{{ route('rooms.index') }}" class="btn btn-info btn-sm btn-block float-right">
                             <i class="fas fa-backward"></i>
-                            Go Back
+                            {{__('messages.go_back')}}
                         </a>
                     </div>
                 </div>
@@ -54,21 +54,20 @@
                             <input type="hidden" name="oldphoto" value="{{ $room->photo }}">
 
                             <div class="form-group row">
-                                <label for="profile" class="col-sm-2 col-form-label">Profile</label>
+                                <label for="profile" class="col-sm-2 col-form-label">{{__('messages.profile')}}</label>
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
-                                            href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Old
-                                            Profile</a>
+                                            href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{__('messages.old_profile')}}</a>
                                         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
                                             href="#nav-profile" role="tab" aria-controls="nav-profile"
-                                            aria-selected="false">New Profile</a>
+                                            aria-selected="false">{{__('messages.new_profile')}}</a>
                                     </div>
                                 </nav>
                             </div>
 
                             <div class="form-group row">
-                                <label for="photo" class="col-sm-2 col-form-label mmfont"> Photo </label>
+                                <label for="photo" class="col-sm-2 col-form-label mmfont"> {{__('messages.photo')}} </label>
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade show active col-sm-10" id="nav-home" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
@@ -84,7 +83,7 @@
 
                         @else
                             <div class="form-group row">
-                                <label for="photo" class="col-sm-2 col-form-label mmfont"> Photo </label>
+                                <label for="photo" class="col-sm-2 col-form-label mmfont"> {{__('messages.photo')}} </label>
                                 <div class="col-sm-10">
                                     <input type="file" class="form-control-file" id="photo" placeholder="" name="photo">
 
@@ -100,7 +99,7 @@
                         @endif
 
                         <div class="form-group row">
-                            <label for="price" class="col-sm-2 col-form-label mmfont"> Price </label>
+                            <label for="price" class="col-sm-2 col-form-label mmfont"> {{__('messages.price')}} </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="price" placeholder="" name="price"
                                     value="{{ $price }}">
@@ -115,7 +114,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="description" class="col-sm-2 col-form-label mmfont"> Description </label>
+                            <label for="description" class="col-sm-2 col-form-label mmfont"> {{__('messages.rooms.description')}} </label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" id="description" rows="3"
                                     name="description">{{ $description }}</textarea>
@@ -131,7 +130,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="roomtype_id" class="col-sm-2 col-form-label mmfont"> Room Type</label>
+                            <label for="roomtype_id" class="col-sm-2 col-form-label mmfont"> {{__('messages.rooms.room_type')}} </label>
                             <div class="col-sm-10">
                                 <select name="roomtype_id" class="custom-select" id="roomtype_id">
                                     @foreach ($roomtype as $row)
@@ -158,7 +157,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="township_id" class="col-sm-2 col-form-label mmfont"> Township </label>
+                            <label for="township_id" class="col-sm-2 col-form-label mmfont"> {{__('messages.township')}} </label>
                             <div class="col-sm-10">
                                 <select name="township_id" class="custom-select" id="township_id">
                                     @foreach ($township as $row)
@@ -185,7 +184,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-sm-2">Service</div>
+                            <div class="col-sm-2">{{__('messages.rooms.service')}}</div>
                             <div class="col-sm-10">
                                 <div class="form-check">
                                     @foreach ($service as $subject)
@@ -211,7 +210,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="size" class="col-sm-2 col-form-label mmfont"> Size </label>
+                            <label for="size" class="col-sm-2 col-form-label mmfont"> {{__('messages.size')}} </label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="size" placeholder="" name="size"
                                     value="{{ $size }}">
@@ -226,7 +225,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="capacity" class="col-sm-2 col-form-label mmfont"> Capacity </label>
+                            <label for="capacity" class="col-sm-2 col-form-label mmfont"> {{__('messages.capacity')}} </label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="capacity" placeholder="" name="capacity"
                                     value="{{ $capacity }}">
@@ -246,9 +245,9 @@
                                 <button type="submit" class="btn btn-outline-primary btn-sm">
                                     <i class="fas fa-save"></i>
                                     @if (isset($room))
-                                        Update
+                                    {{__('messages.update')}}
                                     @else
-                                        Create
+                                    {{__('messages.create')}}
                                     @endif
                                 </button>
                             </div>

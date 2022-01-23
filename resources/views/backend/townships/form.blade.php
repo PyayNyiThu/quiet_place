@@ -11,9 +11,9 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($township))
-                                Edit Existing Township
+                            {{__('messages.townships.edit_township')}}
                             @else
-                                Add New Township
+                            {{__('messages.townships.create_township')}}
                             @endif
                         </h4>
                     </div>
@@ -21,7 +21,7 @@
                     <div class="offset-2 col-2">
                         <a href="{{ route('townships.index') }}" class="btn btn-info btn-sm btn-block float-right">
                             <i class="fas fa-backward"></i>
-                            Go Back
+                            {{__('messages.go_back')}}
                         </a>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         ?>
 
                         <div class="form-group">
-                            <label for="name" class="mmfont"> Name </label>
+                            <label for="name" class="mmfont"> {{__('messages.name')}} </label>
                             <input type="text" class="form-control" id="name" placeholder="" name="name"
                                 value="{{ $name }}">
                             @error('name')
@@ -62,9 +62,9 @@
                         <button type="submit" class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-save"></i>
                             @if (isset($township))
-                                Update
+                            {{__('messages.update')}}
                             @else
-                                Create
+                            {{__('messages.create')}}
                             @endif
                         </button>
                         </form>

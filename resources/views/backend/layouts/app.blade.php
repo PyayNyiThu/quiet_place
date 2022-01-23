@@ -121,6 +121,7 @@
 
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script> --}}
+    
 
     <!-- sweet alert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -179,35 +180,35 @@
         @if (session('create'))
             Toast.fire({
             icon: 'success',
-            title: '{{ session('create') }}'
+            title: "{{__('messages.session_create')}}"
             })
         @endif
 
         @if (session('update'))
             Toast.fire({
             icon: 'success',
-            title: '{{ session('update') }}'
+            title: "{{__('messages.session_update')}}"
             })
         @endif
 
         @if (session('delete'))
             Toast.fire({
             icon: 'success',
-            title: '{{ session('delete') }}'
+            title: "{{__('messages.session_delete')}}"
             })
         @endif
 
         @if (session('restore'))
             Toast.fire({
             icon: 'success',
-            title: '{{ session('restore') }}'
+            title: "{{__('messages.session_restore')}}"
             })
         @endif
 
         @if (session('not_allow'))
             Toast.fire({
             icon: 'error',
-            title: '{{ session('not_allow') }}'
+            title: "{{__('messages.session_not_allow')}}"
             })
         @endif
     </script>

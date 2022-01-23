@@ -10,14 +10,14 @@
             <div class="card-header py-3">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="m-0 font-weight-bold text-info mmfont">User List</h4>
+                        <h4 class="m-0 font-weight-bold text-info mmfont">{{__('messages.users.users_list')}}</</h4>
                     </div>
 
                     <div class="offset-2 col-2">
                         @can('user-create')
                             <a href="{{ route('users.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
                                 <i class="fas fa-plus"></i>
-                                Add New
+                                {{__('messages.add_new')}}
                             </a>
                         @endcan
                     </div>
@@ -29,15 +29,15 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr align="center">
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Roles</th>
-                                <th>Status</th>
+                                <th>{{__('messages.no')}}</th>
+                                <th>{{__('messages.name')}}</th>
+                                <th>{{__('messages.email')}}</th>
+                                <th>{{__('messages.phone')}}</th>
+                                <th>{{__('messages.address')}}</th>
+                                <th>{{__('messages.roles.roles')}}</th>
+                                <th>{{__('messages.action')}}</th>
                                 @if (auth()->user()->can('user-edit') || auth()->user()->can('user-delete') || auth()->user()->can('user-restore'))
-                                    <td align="center"><b>Action</b></td>
+                                <th>{{__('messages.action')}}</th>
                                 @endif
                             </tr>
                         </thead>
@@ -77,9 +77,8 @@
                                             @if ($row->trashed())
                                                 @can('user-restore')
                                                     <a href="{{ route('users.restore', $row->id) }}"
-                                                        class="btn btn-outline-warning mr-2 mmfont restore_confirm">
+                                                        class="btn btn-outline-warning mr-2 mmfont restore_confirm" title="{{__('messages.restore')}}">
                                                         <i class="fas fa-trash-restore"></i>
-                                                        Restore
                                                     </a>
                                                 @endcan
 
@@ -87,9 +86,8 @@
 
                                                 @can('user-edit')
                                                     <a href="{{ route('users.edit', $row->id) }}"
-                                                        class="btn btn-outline-primary mr-2 mmfont">
+                                                        class="btn btn-outline-primary mr-2 mmfont" title="{{__('messages.edit')}}">
                                                         <i class="fas fa-edit"></i>
-                                                        Edit
                                                     </a>
                                                 @endcan
 
@@ -101,8 +99,8 @@
                                                         @if (!$row->trashed())
 
                                                             <button type="submit"
-                                                                class="btn btn-outline-danger mmfont delete_confirm"><i
-                                                                    class="fas fa-trash"></i> Delete</button>
+                                                                class="btn btn-outline-danger mmfont delete_confirm" title="{{__('messages.delete')}}"><i
+                                                                    class="fas fa-trash"></i></button>
                                                         @endif
                                                     @endcan
                                                 </form>
@@ -132,9 +130,10 @@
                 e.preventDefault();
 
                 Swal.fire({
-                    title: 'Are you sure, you want to delete?',
+                    title: "{{__('messages.are_you_sure_you_want_to_delete')}}",
                     showCancelButton: true,
-                    confirmButtonText: `Confirm`,
+                    cancelButtonText: `{{__('messages.cancel')}}`,
+                    confirmButtonText: `{{__('messages.confirm')}}`,
                     reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -148,9 +147,10 @@
                 e.preventDefault();
 
                 Swal.fire({
-                    title: 'Are you sure, you want to restore?',
+                    title: "{{__('messages.are_you_sure_you_want_to_restore')}}",
                     showCancelButton: true,
-                    confirmButtonText: `Confirm`,
+                    cancelButtonText: `{{__('messages.cancel')}}`,
+                    confirmButtonText: `{{__('messages.confirm')}}`,
                     reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {

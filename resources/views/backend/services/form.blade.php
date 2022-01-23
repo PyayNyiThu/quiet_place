@@ -11,9 +11,9 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($service))
-                                Edit Existing Service
+                            {{__('messages.services.edit_service')}}
                             @else
-                                Add New Service
+                            {{__('messages.services.create_service')}}
                             @endif
                         </h4>
                     </div>
@@ -21,7 +21,7 @@
                     <div class="offset-2 col-2">
                         <a href="{{ route('services.index') }}" class="btn btn-info btn-sm btn-block float-right">
                             <i class="fas fa-backward"></i>
-                            Go Back
+                            {{__('messages.go_back')}}
                         </a>
                     </div>
                 </div>
@@ -50,21 +50,20 @@
                             <input type="hidden" name="oldphoto" value="{{ $service->photo }}">
 
                             <div class="form-group row">
-                                <label for="profile" class="col-sm-2 col-form-label">Profile</label>
+                                <label for="profile" class="col-sm-2 col-form-label">{{__('messages.profile')}}</label>
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
-                                            href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Old
-                                            Profile</a>
+                                            href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{__('messages.old_profile')}}</a>
                                         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
                                             href="#nav-profile" role="tab" aria-controls="nav-profile"
-                                            aria-selected="false">New Profile</a>
+                                            aria-selected="false">{{__('messages.new_profile')}}</a>
                                     </div>
                                 </nav>
                             </div>
 
                             <div class="form-group row">
-                                <label for="photo" class="col-sm-2 col-form-label mmfont"> Photo </label>
+                                <label for="photo" class="col-sm-2 col-form-label mmfont"> {{__('messages.photo')}} </label>
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade show active col-sm-10" id="nav-home" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
@@ -81,7 +80,7 @@
 
                         @else
                             <div class="form-group row">
-                                <label for="photo" class="col-sm-2 col-form-label mmfont"> Photo </label>
+                                <label for="photo" class="col-sm-2 col-form-label mmfont"> {{__('messages.photo')}} </label>
                                 <div class="col-sm-10">
                                     <input type="file" class="form-control-file" id="photo" placeholder="" name="photo">
 
@@ -97,7 +96,7 @@
                         @endif
 
                         <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label mmfont"> Name </label>
+                            <label for="name" class="col-sm-2 col-form-label mmfont"> {{__('messages.name')}} </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="name" placeholder="" name="name"
                                     value="{{ $name }}">
@@ -118,9 +117,9 @@
                                 <button type="submit" class="btn btn-outline-primary btn-sm">
                                     <i class="fas fa-save"></i>
                                     @if (isset($service))
-                                        Update
+                                    {{__('messages.update')}}
                                     @else
-                                        Create
+                                    {{__('messages.create')}}
                                     @endif
                                 </button>
                             </div>

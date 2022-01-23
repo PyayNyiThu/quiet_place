@@ -11,9 +11,9 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($role))
-                                Edit Existing Role
+                            {{__('messages.roles.edit_role')}}
                             @else
-                                Add New Role
+                            {{__('messages.roles.create_role')}}
                             @endif
                         </h4>
                     </div>
@@ -21,7 +21,7 @@
                     <div class="offset-2 col-2">
                         <a href="{{ route('roles.index') }}" class="btn btn-info btn-sm btn-block float-right">
                             <i class="fas fa-backward"></i>
-                            Go Back
+                            {{__('messages.go_back')}}
                         </a>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                         ?>
 
                         <div class="form-group">
-                            <label for="name" class="mmfont"> Name </label>
+                            <label for="name" class="mmfont"> {{__('messages.name')}} </label>
                             <input type="text" class="form-control" id="name" placeholder="" name="name"
                                 value="{{ $name }}">
                             @error('name')
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-sm-2">Permission</div>
+                            <div class="col-sm-2">{{__('messages.roles.permissions')}}</div>
                             <div class="col-sm-10">
                                 <div class="form-check">
                                     @php
@@ -104,9 +104,9 @@
                         <button type="submit" class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-save"></i>
                             @if (isset($role))
-                                Update
+                            {{__('messages.update')}}
                             @else
-                                Create
+                            {{__('messages.create')}}
                             @endif
                         </button>
                         </form>

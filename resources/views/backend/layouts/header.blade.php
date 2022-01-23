@@ -21,7 +21,6 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         <li class="nav-item dropdown no-arrow d-sm-none">
             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
@@ -49,7 +48,7 @@
         <li class="nav-item dropdown no-arrow mx-1">
             {{-- <a class="nav-link dropdown-toggle" href="{{url('new-booking-list')}}" id="alertsDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false"> --}}
-                <a class="nav-link dropdown-toggle" href="{{url('admin/new-booking-list')}}" id="alertsDropdown"
+            <a class="nav-link dropdown-toggle" href="{{ url('admin/new-booking-list') }}" id="alertsDropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
@@ -166,6 +165,44 @@
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
             </div>
         </li> --}}
+        {{-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="flag-icon flag-icon-{{ Config::get('languages')[App::getLocale()]['flag-icon'] }}"></span>
+                {{ Config::get('languages')[App::getLocale()]['display'] }}
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">
+                    @foreach (Config::get('languages') as $lang => $language)
+                        @if ($lang != App::getLocale())
+                            <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"><span
+                                    class="flag-icon flag-icon-{{ $language['flag-icon'] }}"></span>
+                                {{ $language['display'] }}</a>
+                        @endif
+                    @endforeach
+                </a>
+            </div>
+        </li> --}}
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="flag-icon flag-icon-{{ Config::get('languages')[App::getLocale()]['flag-icon'] }}"></span>
+                {{ Config::get('languages')[App::getLocale()]['display'] }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                @foreach (Config::get('languages') as $lang => $language)
+                    @if ($lang != App::getLocale())
+                        <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"><span
+                                class="flag-icon flag-icon-{{ $language['flag-icon'] }}"></span>
+                            {{ $language['display'] }}</a>
+                    @endif
+                @endforeach
+            </div>
+        </li>
+
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -177,6 +214,7 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->phone }}</span>
             </div>
         </div>
+
 
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">

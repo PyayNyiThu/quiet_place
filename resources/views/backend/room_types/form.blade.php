@@ -11,16 +11,16 @@
                     <div class="col-8">
                         <h4 class="m-0 font-weight-bold text-info mmfont">
                             @if (isset($room_type))
-                                Edit Existing Room Type
+                            {{__('messages.room_types.edit_room_type')}}
                             @else
-                                Add New Room Type
+                            {{__('messages.room_types.create_room_type')}}
                             @endif
                         </h4>
                     </div>
                     <div class="offset-2 col-2">
                         <a href="{{ route('room-types.index') }}" class="btn btn-info btn-sm btn-block float-right">
                             <i class="fas fa-backward"></i>
-                            Go Back
+                            {{__('messages.go_back')}}
                         </a>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                         ?>
 
                         <div class="form-group">
-                            <label for="name" class="mmfont"> Name </label>
+                            <label for="name" class="mmfont"> {{__('messages.name')}} </label>
                             <input type="text" class="form-control" id="name" placeholder="" name="name"
                                 value="{{ $name }}">
                             @error('name')
@@ -61,9 +61,9 @@
                         <button type="submit" class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-save"></i>
                             @if (isset($room_type))
-                                Update
+                            {{__('messages.update')}}
                             @else
-                                Create
+                            {{__('messages.create')}}
                             @endif
                         </button>
                         </form>

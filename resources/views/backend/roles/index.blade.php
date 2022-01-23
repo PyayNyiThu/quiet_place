@@ -21,14 +21,14 @@
             <div class="card-header py-3">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="m-0 font-weight-bold text-info mmfont">Role List</h4>
+                        <h4 class="m-0 font-weight-bold text-info mmfont">{{__('messages.roles.roles_list')}}</h4>
                     </div>
 
                     <div class="offset-2 col-2">
                         @can('role-create')
                         <a href="{{ route('roles.create') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
                             <i class="fas fa-plus"></i>
-                            Add New
+                            {{__('messages.add_new')}}
                         </a>
                         @endcan
                     </div>
@@ -40,9 +40,9 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr align="center">
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Action</th>
+                                <th>{{__('messages.no')}}</th>
+                                <th>{{__('messages.name')}}</th>
+                                <th>{{__('messages.action')}}</th>
                             </tr>
                         </thead>
 
@@ -61,9 +61,8 @@
                                                                 </a> -->
                                         @can('role-edit')
                                             <a href="{{ route('roles.edit', $row->id) }}"
-                                                class="btn btn-outline-primary mr-2 mmfont">
+                                                class="btn btn-outline-primary mr-2 mmfont" title="{{__('messages.edit')}}">
                                                 <i class="fas fa-edit"></i>
-                                                Edit
                                             </a>
                                         @endcan
 
@@ -74,7 +73,7 @@
 
                                             @can('role-delete')
                                                 <button type="submit" class="btn btn-outline-danger mmfont show_confirm"
-                                                    data-id="{{ $row->id }}"><i class="fas fa-trash"></i> Delete</button>
+                                                    data-id="{{ $row->id }}" title="{{__('messages.edit')}}"><i class="fas fa-trash"></i></button>
                                             @endcan
                                         </form>
                                     </td>
@@ -100,9 +99,10 @@
                 e.preventDefault();
 
                 Swal.fire({
-                    title: 'Are you sure, you want to delete?',
+                    title: "{{__('messages.are_you_sure_you_want_to_delete')}}",
                     showCancelButton: true,
-                    confirmButtonText: `Confirm`,
+                    cancelButtonText: `{{__('messages.cancel')}}`,
+                    confirmButtonText: `{{__('messages.confirm')}}`,
                     reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {

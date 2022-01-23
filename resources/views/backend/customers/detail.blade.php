@@ -10,7 +10,7 @@
             <div class="card-header py-3">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="m-0 font-weight-bold text-info mmfont">User Detail</h4>
+                        <h4 class="m-0 font-weight-bold text-info mmfont">{{__('messages.customers.customer_detail')}}</h4>
                     </div>
 
                     <div class="offset-2 col-2">
@@ -20,7 +20,7 @@
                         </a> --}}
 
                         <button class="btn btn-info btn-sm btn-block float-right back-btn mmfont"><i class="fas fa-backward"></i>
-                            Go Back</button>
+                            {{__('messages.go_back')}}
                     </div>
                 </div>
             </div>
@@ -34,19 +34,19 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th>Name</th>
+                                <td>{{__('messages.name')}}</td>
                                 <td>{{ $customer->name }}</td>
                             </tr>
                             <tr>
-                                <th>Email</th>
+                                <td>{{__('messages.email')}}</td>
                                 <td>{{ $customer->email }}</td>
                             </tr>
                             <tr>
-                                <th>Phone</th>
+                                <td>{{__('messages.phone')}}</td>
                                 <td>{{ $customer->phone }}</td>
                             </tr>
                             <tr>
-                                <th>Address</th>
+                                <td>{{__('messages.address')}}</td>
                                 <td>{{ $customer->address }}</td>
                             </tr>
                         </tbody>

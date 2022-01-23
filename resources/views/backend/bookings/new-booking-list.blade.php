@@ -10,7 +10,7 @@
             <div class="card-header py-3">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="m-0 font-weight-bold text-info mmfont">New Booking List</h4>
+                        <h4 class="m-0 font-weight-bold text-info mmfont">{{__('messages.bookings.new_bookings_list')}}</h4>
                     </div>
                 </div>
             </div>
@@ -20,13 +20,13 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr align="center">
-                                <th>No</th>
-                                <th>Booking No</th>
-                                <th>Customer Data</th>
-                                <th>Room Data</th>
-                                <th>Booking Date</th>
-                                <th>Time</th>
-                                <th>Status</th>
+                                <th>{{__('messages.no')}}</th>
+                                <th>{{__('messages.bookings.booking_no')}}</th>
+                                <th>{{__('messages.bookings.customer_data')}}</th>
+                                <th>{{__('messages.bookings.room_data')}}</th>
+                                <th>{{__('messages.bookings.booking_date')}}</th>
+                                <th>{{__('messages.bookings.time')}}</th>
+                                <th>{{__('messages.status')}}</th>
                             </tr>
                         </thead>
 

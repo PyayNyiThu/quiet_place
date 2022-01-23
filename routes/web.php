@@ -101,3 +101,6 @@ Route::prefix('admin')->namespace('Backend')->middleware('auth')->group(function
 
     Route::get('/new-booking-list', 'BookingController@newBookingList');
 });
+
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
+
