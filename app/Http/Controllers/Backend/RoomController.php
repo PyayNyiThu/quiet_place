@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Room;
-use App\RoomType;
 use App\Service;
+use App\RoomType;
 use App\Township;
 use Illuminate\Http\Request;
+// use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Sheets\RoomExport;
+use App\Exports\Sheets\CommonSheet;
+
+use App\Http\Controllers\Controller;
 
 class RoomController extends Controller
 {
@@ -83,7 +88,7 @@ class RoomController extends Controller
         $roomtype = RoomType::select('id', 'name')->get();
         $township = Township::select('id', 'name')->get();
         $service = Service::select('id', 'name')->get();
-        $room_service = $room->services()->wherePivot('room_id','=',$id)->get();
+        $room_service = $room->services()->wherePivot('notification','=',$id)->get();
     
         return view('backend.rooms.form', compact('roomtype', 'township', 'service', 'room', 'room_service'));
     }
@@ -142,4 +147,65 @@ class RoomController extends Controller
 
         return redirect()->route('rooms.index')->with('restore', 'Success restored room!');
     }
+
+    // public function excelDownload() {
+    //     // dd("hello");die();
+    //     $rooms = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'capacity', 'size', 'deleted_at')->with(['services:id,name', 'roomtype:id,name', 'township:id,name'])->orderBy('id', 'desc')->get();
+
+    //     $excelName = "Rooms Data";
+
+    //     // dd($excelName);die();
+
+    //     // dd($excelName);die();
+
+    //     // if(count($products) == 0){
+    //     //     return $this->errorResponse("There is no data.", Response::HTTP_BAD_REQUEST);
+    //     // }
+
+    //     $excel_data = [];
+    //     // foreach ($rooms as $row) {
+    //     //     // $last_date = '';
+    //     //     $tmp = [];
+    //     //     $tmp['Price'] = $row->price;
+    //     //     $tmp['Description'] = $row->description;
+    //     //     $tmp['Room Type'] = $row->roomtype->name;
+    //     //     $tmp['Township'] = $row->township->name;
+    //     //     $tmp['Size'] = $row->size;
+    //     //     $tmp['Capacity'] = $row->capacity;
+    //     //     $tmp['Services'] = $row->services->name;
+            
+    //     //     $excel_data[] = array_values($tmp);
+    //     // }
+        
+    //     // dd($excel_data);die();
+
+    //     $sheet = [
+    //         'excel_heading' => ['Price','Description','Room Type', 'Township', 'Size', 'Capacity', 'Services'],
+    //         'excel_data' => $excel_data,
+    //         "excel_title" => $excelName,
+    //     ];
+
+    //     // dd($sheet);die();
+
+    //     $file_name = 'quiet_place_excel/'.$excelName.date('YmdHis').'.xlsx';
+    //     Excel::store(new CommonSheet($sheet), $file_name,);
+    //     // $data['url'] =  Storage::disk('s3')->url($file_name);
+    //     return redirect()->route('rooms.index')->with('restore', 'Success restored room!');
+    // }
+
+    // public function excelDownload() {
+    //     return Excel::download(new RoomExport, 'users.xlsx');
+    // }
+
+    // public function excelDownload() {
+    //     $rooms = Room::select('id', 'price', 'photo', 'description', 'roomtype_id', 'township_id', 'capacity', 'size', 'deleted_at')->with(['services:id,name', 'roomtype:id,name', 'township:id,name'])->orderBy('id', 'desc')->get();
+    //     $excelName = "All Rooms Data";
+
+    //     return Excel::download($excelName.'-'.date('Y-m-d'), function($excel) use($rooms) {
+    //         $excel->sheet('All Rooms Data', function($sheet) use($rooms) {
+    //             $sheet->loadView('report.excel.rooms')
+    //                 ->with('rooms', $rooms);
+    //         });
+    //       })->export('xlsx');
+    // }
 }

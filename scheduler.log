@@ -1,0 +1,27 @@
+Demo:Cron Command Run successfully!
+Demo:Cron Command Run successfully!
+This is runningThis is runningThis is runningThis is runningThis is runningThis is runningDemo:Cron Command Run successfully!
+This is runningDemo:Cron Command Run successfully!
+This is runningDemo:Cron Command Run successfully!
+This is runningDemo:Cron Command Run successfully!
+
+   ErrorException 
+
+  Trying to get property 'id' of non-object
+
+  at C:\xampp\htdocs\quiet_place\app\Console\Commands\DemoCron.php:52
+    48|         */
+    49|       
+    50|         // $this->info('Demo:Cron Command Run successfully!');
+    51| 
+  > 52|         $authuser_booking_count = Booking::whereDate('created_at', date('Y-m-d'))->where('customer_id', Auth::guard('customer')->user()->id)->count();
+    53| 
+    54|         if (10 > $authuser_booking_count) {
+    55|             $authuser_booking_count = '0' . ($authuser_booking_count + 1);
+    56|         }
+
+  1   C:\xampp\htdocs\quiet_place\app\Console\Commands\DemoCron.php:52
+      Illuminate\Foundation\Bootstrap\HandleExceptions::handleError("Trying to get property 'id' of non-object", "C:\xampp\htdocs\quiet_place\app\Console\Commands\DemoCron.php", [])
+
+  2   C:\xampp\htdocs\quiet_place\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+      App\Console\Commands\DemoCron::handle()

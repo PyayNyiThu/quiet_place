@@ -126,6 +126,9 @@
     <!-- sweet alert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- One Signal -->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+
     <script type="text/javascript">
         let token = document.head.querySelector("meta[name='csrf-token']");
 
@@ -211,6 +214,24 @@
             title: "{{__('messages.session_not_allow')}}"
             })
         @endif
+
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "f5340657-eaf5-46ee-bb6e-05ab628520d9",
+            });
+
+            OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+                if (isEnabled) {
+                    OneSignal.getUserId(function(userId) {
+                        console.log("Player id of subscribed user is : " + userId);
+                    });
+                }
+            });
+
+            OneSignal.setSubscription(true);
+        });
+        window.localStorage.clear();
     </script>
 
 

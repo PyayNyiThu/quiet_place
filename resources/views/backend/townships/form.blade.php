@@ -59,6 +59,10 @@
                             @enderror
                         </div>
 
+                        {{-- @foreach($revenueMonth as $val)
+                        {{$val->name}} , {{$val->created_at}} <br>
+                        @endforeach --}}
+
                         <button type="submit" class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-save"></i>
                             @if (isset($township))

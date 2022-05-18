@@ -69,6 +69,8 @@ Route::prefix('admin')->namespace('Backend')->middleware('auth')->group(function
 
     Route::get('/rooms/{id}/restore', 'RoomController@restore')->name('rooms.restore');
 
+    Route::get('rooms/excel/download', 'RoomController@excelDownload')->name('rooms.excel-download');
+
     Route::resource('/room-types', 'RoomTypeController');
 
     Route::get('/room-types/{id}/restore', 'RoomTypeController@restore')->name('room-types.restore');    

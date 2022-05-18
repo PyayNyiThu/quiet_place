@@ -20,6 +20,12 @@
                                 {{__('messages.add_new')}}
                             </a>
                         @endcan
+
+                        <a href="{{ route('rooms.excel-download') }}" class="btn btn-info btn-sm btn-block float-right mmfont">
+                            <i class="fas fa-plus"></i>
+                            {{-- {{__('messages.add_new')}} --}}
+                            Excel Download
+                        </a>
                     </div>
                 </div>
             </div>
