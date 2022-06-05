@@ -18,7 +18,7 @@ class ServiceTableSeeder extends Seeder
         for($i = 0; $i <6; $i++) {
             Service::create([
                 'name' => $name[$i],
-                'photo' => 'storage/image/'.$photo[$i],
+                'photo' => 'backend/images/'.$photo[$i],
             ]);
         }
     }

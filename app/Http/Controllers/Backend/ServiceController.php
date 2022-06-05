@@ -39,7 +39,7 @@ class ServiceController extends Controller
         // If exist file, upload file
         if($request->hasfile('photo')) {
             $photo = $request->file('photo');
-            $upload_dir = 'storage/image/';
+            $upload_dir = 'backend/images/';
             $name = $photo->getClientOriginalName();
             $photo->move($upload_dir, $name);
             $path = $upload_dir.$name;
@@ -71,7 +71,7 @@ class ServiceController extends Controller
         // If exist file, upload file
          if($request->hasfile('photo')) {
             $photo = $request->file('photo');
-            $upload_dir = 'storage/image/';
+            $upload_dir = 'backend/images/';
             $name = $photo->getClientOriginalName();
             $photo->move($upload_dir, $name);
             $path = $upload_dir.$name;

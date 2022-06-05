@@ -53,7 +53,7 @@ class RoomController extends Controller
         // If exist file, upload file
         if($request->hasfile('photo')) {
             $photo = $request->file('photo');
-            $upload_dir = 'storage/image/';
+            $upload_dir = 'backend/images/';
             $name = $photo->getClientOriginalName();
             $photo->move($upload_dir,$name);
             $path = $upload_dir.$name;
@@ -88,7 +88,7 @@ class RoomController extends Controller
         $roomtype = RoomType::select('id', 'name')->get();
         $township = Township::select('id', 'name')->get();
         $service = Service::select('id', 'name')->get();
-        $room_service = $room->services()->wherePivot('notification','=',$id)->get();
+        $room_service = $room->services()->wherePivot('room_id','=',$id)->get();
     
         return view('backend.rooms.form', compact('roomtype', 'township', 'service', 'room', 'room_service'));
     }
@@ -104,7 +104,7 @@ class RoomController extends Controller
         // If exist file, upload file
         if($request->hasfile('photo')) {
             $photo = $request->file('photo');
-            $upload_dir = 'storage/image/';
+            $upload_dir = 'backend/images/';
             $name = $photo->getClientOriginalName();
             $photo->move($upload_dir,$name);
             $path = $upload_dir.$name;
